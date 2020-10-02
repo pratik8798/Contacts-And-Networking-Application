@@ -28,7 +28,7 @@ public interface UserDao {
 	void blockFriend(int userId);
 	List<User> showPendingRequests();				//check name 's'
 	void ignoreFriendRequest(int userId);			
-	void addFriend(User user);
+	void addFriend(int userId1,int userId2);
 	List<User> getBlockedUsers();					//check name 's'
 	void unblockUser(int userId);
 	void sendFriendRequest(User sender, User receiver);
