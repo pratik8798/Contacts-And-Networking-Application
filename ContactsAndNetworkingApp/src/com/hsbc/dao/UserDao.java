@@ -11,27 +11,33 @@ import com.hsbc.domain.Contact;
 import com.hsbc.domain.User;
 
 public interface UserDao {
+	
+	int getUserId(String userName);
+	
 	void addUser(User user);
 	User getUser(String field,String value);		// field=Name/Location/Company value 
 	void deactivateUser(int userId);				//decide userId or userName
 	void updateUser(User user);						//decide userId,field,value or user object
 
-	void addNewContact(Contact contact);			//addNewContact or addContact
+	void addNewContact(int userId,Contact contact);			//addNewContact or addContact
 	Contact getContact(String field,String value);	// field=Name/Location/Company value
 	List<Contact> getAllContacts();
-	void removeContact(int userId);					//decide userId or userName
+	void removeContact(int userId,int contactId);					//decide userId or userName
 	void updateContact(Contact contact);			//decide userId,field,value or Contact object
 	
-	void getOneFriend(int userId);
-	List<User> getAllFriends();
-	void removeFriend(int userId);
-	void blockFriend(int userId);
-	List<User> showPendingRequests();				//check name 's'
-	void ignoreFriendRequest(int userId);			
-	void addFriend(int userId1,int userId2);
-	List<User> getBlockedUsers();					//check name 's'
-	void unblockUser(int userId);
-	void sendFriendRequest(User sender, User receiver);
+	User getOneFriend(int userId1,int userId2);		
+	List<User> getAllFriends(int userId);
+	void removeFriend(int userId1,int userId2);
+	void blockFriend(int userId1,int userId2);
+	List<User> showPendingRequests(int userId1);				//check name 's'
+	void ignoreFriendRequest(int senderId,int receiverId);			
+	void acceptFriendRequest(int userId1,int userId2);
+	List<User> getBlockedUsers(int userId);					//check name 's'
+	void unblockUser(int blocker,int blocked);			//userId1 will unblock userId2
+	void sendFriendRequest(int senderId, int receiverId,int message);
+	
+	boolean isDisabled(int userId1);
+	boolean isDeactivated(int userId1);
 	
 	
 	

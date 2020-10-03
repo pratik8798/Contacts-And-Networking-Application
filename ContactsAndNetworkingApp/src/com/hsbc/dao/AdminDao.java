@@ -6,8 +6,10 @@ import com.hsbc.domain.Admin;
 import com.hsbc.domain.User;
 
 public interface AdminDao {
-	Admin getAdmin(String userName);
+	Admin getAdmin(String userName,String password);
 	List<User> getTotalUsers();				//int count or list of users
-	void disableUser(String userName);		//username or user id;
-	void deleteUser(String userName);		//username or user id;
+	void disableUser(int userId);			//username or user id;
+	void deleteUser(int userId);			//username or user id;
+	List<User> listOfPossibleDisabledUsers();	//should be hashmap of users and whether disabled or not
+	List<User> listOfPossibleDeletedUsers();
 }

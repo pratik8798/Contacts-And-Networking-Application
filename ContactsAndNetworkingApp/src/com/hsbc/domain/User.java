@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class User extends Person{
-	private String username;
+	private String userName;
 	private String password;
 	private Timestamp timestamp;
 	private int activeHours;
@@ -26,11 +26,11 @@ public class User extends Person{
 	
 	
 	public User(int userId, String fullName, String email, long phoneNumber, String gender, Date dateOfBirth,
-			String address, String city, String state, String country, String company,String username, String password, Timestamp timestamp, int activeHours) {
+			String address, String city, String state, String country, String company,String userName, String password, Timestamp timestamp, int activeHours) {
 		
 		super(userId, fullName, email, phoneNumber, gender, dateOfBirth, address, city, state, country, company);
 		
-		this.username = username;
+		this.userName = userName;
 		this.password = password;
 		this.timestamp = timestamp;
 		this.activeHours = activeHours;
@@ -42,11 +42,11 @@ public class User extends Person{
 
 
 	public String getUsername() {
-		return username;
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
