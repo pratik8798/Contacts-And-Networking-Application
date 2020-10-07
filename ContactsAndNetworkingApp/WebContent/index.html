@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+
+
+<body>
+	
+	
+	<form action="viewAdmin" method="post">
+		Username : <input type="text" name="userName" id="userName">
+		<br>
+		<br>
+		
+		Password : <input type="password" name="password" id="password">
+		<br>
+		<br>
+		
+		<input type="button" onclick="getAdmin()" value="Get Admin">
+	
+	</form>
+	<form action="viewAllUsers" method="post">
+		<input type="button" onclick="getTotalUsers()" value="Get All Users">
+	</form>
+	<br>
+	<br>
+	<form action="viewAllDisabledUsers" method="post">
+		<input type="button" onclick="getListOfPossibleDisabledUsers()" value="Get All Disabled Users">
+	</form>
+	<br>
+	<br>
+	<form action="viewAllDeletedUsers" method="post">
+		<input type="button" onclick="getListOfPossibleDeletedUsers()" value="Get All Deleted Users">
+	</form>
+	<div id="display">
+		
+		<br>
+		<br>
+
+	</div>
+	<script type="text/javascript" src="js/getAdmin.js"></script>
+	<script type="text/javascript" src="js/getTotalUsers.js"></script>
+	<script type="text/javascript" src="js/listOfPossibleDisabledUsers.js"></script>
+	<script type="text/javascript" src="js/listOfPossibleDeletedUsers.js"></script>
+	<script type="text/javascript" src="js/disableUser.js"></script>
+	<script type="text/javascript" src="js/deleteUser.js"></script>
+	
+</body>
+</html>

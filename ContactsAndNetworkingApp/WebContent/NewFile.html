@@ -5,6 +5,45 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Hello
+ 
+	<form action="viewAdmin" method="post">
+	Username : <input type="text" name="userName">
+	<br>
+	<br>
+	
+	Password : <input type="password" name="password">
+	<br>
+	<br>
+	
+	<input type="submit" value="Get Admin">
+	
+	</form>
+	
+	<form action="viewAllUsers" method="post">
+		<input type="submit" value="Get All Users">
+	</form>
+
+	
+	
+	<form action="viewAllDisabledUsers" method="post">
+		<input type="submit" value="List of Users that can be disabled"> 
+	</form>
+	<form action="viewAllDeletedUsers" method="post">
+		<input type="submit" value="List of Users that can be deleted"> 
+	</form>
+	<br>
+	<form action="disableUser" method="post">
+		Id : <input type="text" name="userId">
+		<br>
+		<input type="submit" value="Disable"> 
+	</form>
+	
+	<br>
+	<form action="deleteUser" method="post">
+		Id : <input type="text" name="userId">
+		<br>
+		<input type="submit" value="Delete"> 
+	</form>
+	
 </body>
 </html>

@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.hsbc.domain.Contact;
 import com.hsbc.domain.User;
+import com.hsbc.utility.DbUtility;
 
 public class UserDaoImpl implements UserDao{
 
@@ -46,8 +47,8 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public User getUser(String field, String value) {
-		// TODO Auto-generated method stub
 		return null;
+		
 	}
 
 	@Override
@@ -141,11 +142,57 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public void unblockUser(int blocker, int blocked) {
-		// TODO Auto-generated method stub
+	public void unblockUser(int userId, int userId2) { // In this i also need the two
+		System.out.println("unblock" +userId +" "+userId2);					// userIds
+		Connection con = DbUtility.getConnection();
+		try {
+		// We need to unblock the user by deleting it form db only for the current user
+		// like userOne
+		String query = "delete from BlockedUsers where userTwo=? and userOne=?";
+		PreparedStatement pst = con.prepareStatement(query);
 		
-	}
+		pst.setInt(1, userId2);
+		pst.setInt(2, userId);
+		if(!isDisabled(userId2)) {
+		
+			int count = 0;
+			int c1 = 0;
+			String query3 = "Select count(*) from BLOCKEDUSERS where userTwo=" + userId2;
+			
+			Statement stmt = con.createStatement();
+			
+			ResultSet rs1 = stmt.executeQuery(query3);
+			
+			while (rs1.next()) {
+				count = rs1.getInt(1);	
+			}
+			
+			System.out.println("count"+count);
+			PreparedStatement pst2 = null;
+			int c = pst.executeUpdate();
+			if (count <= 3)
+			{		
+				String query2 = "delete from DISABLEDUSERS where userId=?";  // checking if the user is disabled																// deleting
+				System.out.println(query2);
+				
+				pst2 = con.prepareStatement(query2);
+				pst2.setInt(1,userId2);	
+				c1 = pst2.executeUpdate();	
+				
+			}
+			
+			System.out.println("c1"+c1);
+			con.close();
+			if (c == 0 && c1==0) {
+				System.out.println("No user");
+			}
+		}
+			
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
 
+}
 	@Override
 	public void sendFriendRequest(int senderId, int receiverId, int message) {
 		// TODO Auto-generated method stub
@@ -154,7 +201,26 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public boolean isDisabled(int userId1) {
-		// TODO Auto-generated method stub
+		Connection con = DbUtility.getConnection();
+		try {
+
+			String st = "Select isDisabled  from DISABLEDUSERS where userId=" + userId1;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(st);
+			boolean isdisable = false;
+			
+			
+			if (rs.next()) {
+				isdisable = rs.getBoolean(1);
+				con.close();
+				return isdisable;
+			} else {
+				con.close();
+				return false;
+			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 		return false;
 	}
 

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+
+http=new XMLHttpRequest();
+
+function process() {
+	
+
+
+	userName=document.getElementById("userName").value;
+	
+	//alert(userName)
+	http.onreadystatechange=displayData;
+	
+	
+	http.open("POST", "getImageAjax", true);
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	http.send("userName="+userName);
+	
+	
+}
+function displayData() {
+	if(http.readyState==4)
+	{
+		res=http.responseText;
+		obj=JSON.parse(res);
+		//alert(res)
+		if(obj.message==undefined)
+		{
+			image='<img src="data:image/jpg;base64,'+obj.image+'" width="240" height="300"/>'
+			//alert(image)
+			document.getElementById("display").innerHTML=image
+		}
+		else
+		{
+			document.getElementById("display").innerHTML=obj.message;
+				
+		}
+		
+		
+		
+			
+		
+	}
+}
+
+
+</script>
+<body>
+	<p>Click on the "Choose File" button to upload a file:</p>
+	
+	    
+	<form action="saveImage" method="post" enctype="multipart/form-data">
+	
+		Name : <input type="text" name="name" id="name">
+		<br>
+	  	<label for="img">Select image:</label>
+	  	<input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
+	  
+	  	<br>
+	  	<input type="submit" value="Upload">
+	</form>
+	<br>
+	<br>
+	<br>
+
+<!--  	
+	<form action="getImage" method="post">
+	
+		
+		Name : <input type="text" name="userName" id="userName">
+		<br>
+	  	
+		<input type="submit" value="Get image">
+	
+	</form>
+	
+-->
+	<form action="getImageAjax" method="post">
+	
+		
+		Name : <input type="text" name="userName" id="userName">
+		<br>
+	  	
+		<input type="button" onclick="process()" value="Get image">
+	
+	</form>
+	
+	
+	<div id="display">
+		
+		<br>
+		<br>
+
+	</div>
+</body>
+</html>

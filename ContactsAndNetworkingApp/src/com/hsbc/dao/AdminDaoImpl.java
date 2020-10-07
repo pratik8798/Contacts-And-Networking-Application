@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -22,6 +23,7 @@ import org.xml.sax.SAXException;
 
 import com.hsbc.domain.Admin;
 import com.hsbc.domain.User;
+import com.hsbc.utility.DbUtility;
 
 public class AdminDaoImpl implements AdminDao{
 
@@ -36,6 +38,10 @@ public class AdminDaoImpl implements AdminDao{
 
 			DocumentBuilder builder=factory.newDocumentBuilder();
 	
+			//String basePath = new File("").getAbsolutePath();
+		    
+			//System.out.println(basePath);
+		    
 			File inputFile=new File("F:\\CODEFURY\\ContactsAndNetworkingApp\\resources\\Admin.xml");
 			
 			Document doc=builder.parse(inputFile);
@@ -68,7 +74,7 @@ public class AdminDaoImpl implements AdminDao{
 					}
 					else if(adminUserName.equals(userName) && !adminPassword.equals(password))
 					{
-						System.out.println("Wrong Password exception");
+						//System.out.println("Wrong Password exception");
 					}
 					
 					
@@ -86,7 +92,7 @@ public class AdminDaoImpl implements AdminDao{
 		}
 		if(!flag)
 		{
-			System.out.println("Login credentials failed");
+			//System.out.println("Login credentials failed");
 		}
 		
 		
@@ -95,7 +101,16 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public List<User> getTotalUsers() {
+	public List<User> getTotalUsers()	//apply checks for disabled and deactivated in servlet
+	{
+		/*
+		 * 
+		 *  select users.userid,userName,city,state,country,
+       		case when timeofdeactivation is null then 'yes' else 'no' end as active
+ 			from users left join deactivatedusers on users.userid=deactivatedusers.userid;
+		 * 
+		 * 
+		 */
 		Connection con=DbUtility.getConnection();
 		String query="SELECT userId,userName,city,state,country from Users";
 		ArrayList<User> users=new ArrayList<>();
@@ -115,101 +130,151 @@ public class AdminDaoImpl implements AdminDao{
 				users.add(u);
 				
 			}
-			
+			rs.close();
+			stmt.close();
 			con.close();
 
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}
 		return users;
 	}
 
 	@Override
-	public void disableUser(int userId) {
+	public boolean disableUser(int userId) {
 		Connection con=DbUtility.getConnection();
 		String query="update DisabledUsers set isDisabled = true where userId = ?";
+		int count=0;
 		try {
 			
 			PreparedStatement ps=con.prepareStatement(query);
 			ps.setInt(1, userId);
-			ps.executeUpdate();
+			count=ps.executeUpdate();
+			if(count==0)
+			{
+				//System.out.println("User not found exception");
+			}
 			
+
+			ps.close();
 			con.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return count!=0;
 	}
 
 	@Override
-	public void deleteUser(int userId) {
+	public boolean deleteUser(int userId) {
 		Connection con=DbUtility.getConnection();
 		String query="delete from Users where userId = ?";
+		int count=0;
 		try {
 			
 			PreparedStatement ps=con.prepareStatement(query);
 			ps.setInt(1, userId);
-			ps.executeUpdate();
+			count=ps.executeUpdate();
+			if(count==0)
+			{
+				//System.out.println("User not found exception");
+			}
 			
+			ps.close();
 			con.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		
+		return count!=0;
 	}
 
 	@Override
-	public List<User> listOfPossibleDisabledUsers() {			
+	public HashMap<User,Boolean> listOfPossibleDisabledUsers() {			
 		Connection con=DbUtility.getConnection();
-		String query="select userId from DisabledUsers where isDisabled = false";
+		String query=" select disabledusers.userid,username,city,state,country,isdisabled from disabledusers left join users on users.userid=disabledusers.userid";
 		
 		ArrayList<User> users=new ArrayList<>();
 		
-		String getUserQuery="SELECT userId,userName,city,state,country from Users where userId=?";
+		HashMap<User, Boolean> hash=new HashMap<>();
+
+		
 		
 		try {
 			
-			Statement stmt=con.createStatement();
+			Statement stmt=con.createStatement();	
 			
 			ResultSet rs=stmt.executeQuery(query);
-			
-			PreparedStatement ps=con.prepareStatement(getUserQuery);
-			
+						
 			while (rs.next()) {
 				
-				int userId=rs.getInt(1);
-				ps.setInt(1, userId);
-				
-				ResultSet user=ps.executeQuery();
-				
-				while (user.next()) {
-					User u=new User();
-					u.setUserId(user.getInt(1));
-					u.setUsername(user.getString(2));
-					u.setCity(user.getString(3));
-					u.setState(user.getString(4));
-					u.setCountry(user.getString(5));
-					users.add(u);
-					
-				}
+				User u=new User();
+				u.setUserId(rs.getInt(1));
+				u.setUsername(rs.getString(2));
+				u.setCity(rs.getString(3));
+				u.setState(rs.getString(4));
+				u.setCountry(rs.getString(5));
+				users.add(u);
+				hash.put(u, rs.getBoolean(6));
+
 				
 			}
-			
+			rs.close();
+			stmt.close();
 			con.close();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return users;
+		return hash;
 	}
 
 	@Override
-	public List<User> listOfPossibleDeletedUsers() {
-		// TODO Auto-generated method stub
+	public HashMap<User,Integer> listOfPossibleDeletedUsers() {
+		Connection con=DbUtility.getConnection();
+		final int MINIMUM_HOURS=2;
 		
-		return null;
+		//check isdisabled in servlet
+		String query=" select activity.userid,username,city,state,country,activeHours from activity left join users on users.userid=activity.userid where activehours< ?";
+		
+		ArrayList<User> users=new ArrayList<>();
+		
+		HashMap<User, Integer> hash=new HashMap<>();
+		
+		
+		
+		try {
+			
+			PreparedStatement ps1=con.prepareStatement(query);
+			ps1.setInt(1, MINIMUM_HOURS);
+			
+			ResultSet rs=ps1.executeQuery();
+			
+			while (rs.next()) {
+				
+				User u=new User();
+				u.setUserId(rs.getInt(1));
+				u.setUsername(rs.getString(2));
+				u.setCity(rs.getString(3));
+				u.setState(rs.getString(4));
+				u.setCountry(rs.getString(5));
+				users.add(u);
+				hash.put(u, rs.getInt(6));
+				
+				
+				
+			}
+			
+			rs.close();
+			ps1.close();
+			con.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return hash;		
 	}
 
 }
