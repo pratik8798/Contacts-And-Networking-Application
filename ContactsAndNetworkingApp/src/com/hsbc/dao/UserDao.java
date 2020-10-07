@@ -30,14 +30,12 @@ public interface UserDao {
 	void removeFriend(int userId1,int userId2);
 	void blockFriend(int userId1,int userId2);
 	List<User> showPendingRequests(int userId1);				//check name 's'
-	void ignoreFriendRequest(int senderId,int receiverId);			
-	void acceptFriendRequest(int userId1,int userId2);
+	String ignoreFriendRequest(int senderId,int receiverId);			
+	String acceptFriendRequest(int userId1,int userId2);
 	List<User> getBlockedUsers(int userId);					//check name 's'
-	void unblockUser(int blocker,int blocked);			//userId1 will unblock userId2
-	void sendFriendRequest(int senderId, int receiverId,int message);
+	String unblockUser(int blocker,int blocked);			//userId1 will unblock userId2
+	String sendFriendRequest(int senderId, int receiverId,String message);
 	
-	boolean isDisabled(int userId1);
-	boolean isDeactivated(int userId1);
 	
 	
 	

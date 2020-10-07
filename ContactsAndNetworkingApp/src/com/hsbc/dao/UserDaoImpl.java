@@ -124,110 +124,205 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public void ignoreFriendRequest(int senderId, int receiverId) {
-		// TODO Auto-generated method stub
-		
-	}
+	public String ignoreFriendRequest(int senderId, int receiverId) {
 
-	@Override
-	public void acceptFriendRequest(int userId1, int userId2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<User> getBlockedUsers(int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void unblockUser(int userId, int userId2) { // In this i also need the two
-		System.out.println("unblock" +userId +" "+userId2);					// userIds
 		Connection con = DbUtility.getConnection();
 		try {
-		// We need to unblock the user by deleting it form db only for the current user
-		// like userOne
-		String query = "delete from BlockedUsers where userTwo=? and userOne=?";
-		PreparedStatement pst = con.prepareStatement(query);
+
+			// delete from the table if recevier has having sender id as a pending request
+			// else return exception
+			String query = "delete from PendingFriendList where userOne=? and userTwo=?";
+			PreparedStatement pst = con.prepareStatement(query);
+
+			pst.setInt(1, senderId);
+			pst.setInt(2, receiverId);
+
+			int c = pst.executeUpdate();
+
+			if (c != 0)
+				return "Success";
 		
-		pst.setInt(1, userId2);
-		pst.setInt(2, userId);
-		if(!isDisabled(userId2)) {
+		}
 		
+		catch (SQLException se) {
+			se.printStackTrace();
+		}
+		
+		return "";
+		
+		
+
+	}
+	@Override
+	public String acceptFriendRequest(int userId1, int userId2) {
+
+		Connection con = DbUtility.getConnection();
+		String query = "insert into FRIENDLIST values(?,?)";
+
+		try {
+
+			PreparedStatement psmt = con.prepareStatement(query);
+
+			psmt.setInt(1, userId1);
+			psmt.setInt(2, userId2);
+
+			int c=psmt.executeUpdate();
+			if(c!=0)
+				
+			{
+				return "Success";
+			}
+			
+
+		} catch (SQLException e1) {
+
+			e1.printStackTrace();
+		}
+		return "";
+
+	}
+	
+
+	@Override
+	public List<User> getBlockedUsers(int userId) { // need a userId of the user for which we want to get blocked user
+													// as an argument
+		//
+		Connection con = DbUtility.getConnection();
+		List<User> list = new ArrayList<>();
+		List<User> list2 = new ArrayList<>();
+		
+		try {
+
+			String st = "Select userTwo from BLOCKEDUSERS where userOne=" + userId;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(st);
+			while (rs.next()) {
+				int blockedUserId = rs.getInt(1);// these are the blocked user id's for particular user
+				if (!IsDisabledUtility.isDisabled(blockedUserId) && !IsDeactivatedUtility.isDeactivated(blockedUserId)) {
+					String userIdstr = Integer.toString(blockedUserId);
+					list = getUser("userId", userIdstr); // getting the user details using the blocked userI
+					list2.add(list.get(0));
+				}
+			}
+
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return list2;
+
+	}
+
+	@Override
+	public String unblockUser(int userId, int userId2) { // Getting the two userId's i.e sender and receiver
+		System.out.println(userId+"---->"+userId2);
+		Connection con = DbUtility.getConnection();
+		try {
+			// We need to unblock the user by deleting it form db only for the current user
+			// like userOne
+			String query = "delete from BlockedUsers where userTwo=? and userOne=?";
+			String query2 = "Select count(*) from BLOCKEDUSERS where userTwo=" + userId2;
+			
+			PreparedStatement pst = con.prepareStatement(query);
+
+			pst.setInt(1, userId);
+			pst.setInt(2, userId2);
+			
+			if(!IsDisabledUtility.isDisabled(userId2)) {
+			
 			int count = 0;
 			int c1 = 0;
-			String query3 = "Select count(*) from BLOCKEDUSERS where userTwo=" + userId2;
 			
 			Statement stmt = con.createStatement();
+		
+			ResultSet rs1 = stmt.executeQuery(query2);
 			
-			ResultSet rs1 = stmt.executeQuery(query3);
+			int c = pst.executeUpdate();
 			
 			while (rs1.next()) {
 				count = rs1.getInt(1);	
 			}
 			
-			System.out.println("count"+count);
+			System.out.println(count);
+			
 			PreparedStatement pst2 = null;
-			int c = pst.executeUpdate();
+			
 			if (count <= 3)
 			{		
-				String query2 = "delete from DISABLEDUSERS where userId=?";  // checking if the user is disabled																// deleting
-				System.out.println(query2);
-				
-				pst2 = con.prepareStatement(query2);
+				String query3 = "delete from DISABLEDUSERS where userId=?";  // checking if the user is disabled																// deleting
+				pst2 = con.prepareStatement(query3);
 				pst2.setInt(1,userId2);	
 				c1 = pst2.executeUpdate();	
-				
 			}
 			
+			System.out.println("c" +c);
+			
 			System.out.println("c1"+c1);
-			con.close();
-			if (c == 0 && c1==0) {
-				System.out.println("No user");
+
+			if (c != 0 ) {
+			
+				return "Success";
 			}
-		}
+			con.close();
+			}
+			
 			
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
+		return "";
 
-}
-	@Override
-	public void sendFriendRequest(int senderId, int receiverId, int message) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public boolean isDisabled(int userId1) {
+	public String sendFriendRequest(int senderId, int receiverId, String message){
+
 		Connection con = DbUtility.getConnection();
+		String query = "insert into PendingFriendList values(?,?,?)";
+		boolean isBlock = false;
+		boolean isdeactivate = false;
+		
 		try {
-
-			String st = "Select isDisabled  from DISABLEDUSERS where userId=" + userId1;
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(st);
-			boolean isdisable = false;
-			
-			
-			if (rs.next()) {
-				isdisable = rs.getBoolean(1);
-				con.close();
-				return isdisable;
-			} else {
-				con.close();
-				return false;
-			}
-		} catch (SQLException e1) {
-			e1.printStackTrace();
+			isdeactivate = IsDeactivatedUtility.isDeactivated(receiverId);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return false;
-	}
 
-	@Override
-	public boolean isDeactivated(int userId1) {
-		// TODO Auto-generated method stub
-		return false;
+		List<User> listofBlocked = getBlockedUsers(receiverId); // got all the blocked user of particular user using
+																// receiver userid
+
+		for (User u : listofBlocked) {
+			if (u.getUserId() == senderId) // check if the sender is in block list of user or not
+			{
+				isBlock = true;
+			}
+		}
+		
+		if (!isBlock && !isdeactivate) { // if the user is not blocked and the receiver is not deactivated
+			try {
+
+				PreparedStatement psmt = con.prepareStatement(query);
+
+				psmt.setInt(1, senderId);
+				psmt.setInt(2, receiverId);
+				psmt.setString(3, message);
+
+				int c=psmt.executeUpdate();
+				
+				if(c!=0)
+				{
+					return "Success";
+				}
+			}
+
+			catch (SQLException e1) {
+
+				e1.printStackTrace();
+			}
+			
+		}
+		return "";
+	
 	}
+	
 
 }
