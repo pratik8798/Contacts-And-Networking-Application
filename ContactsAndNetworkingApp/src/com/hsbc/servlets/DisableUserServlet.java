@@ -44,7 +44,7 @@ public class DisableUserServlet extends HttpServlet {
 		JSONObject obj=new JSONObject();
 		if(adminDao.disableUser(userId))
 		{
-			System.out.println("User disabled successfully");
+			System.out.println("User"+userId+" disabled successfully");
 			obj.put("message", "User disabled successfully");
 		}
 		else

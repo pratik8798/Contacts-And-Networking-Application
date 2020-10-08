@@ -5,11 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.hsbc.domain.Contact;
 import com.hsbc.domain.User;
 import com.hsbc.utility.DbUtility;
+import com.hsbc.utility.IsDeactivatedUtility;
+import com.hsbc.utility.IsDisabledUtility;
 
 public class UserDaoImpl implements UserDao{
 
@@ -200,7 +203,7 @@ public class UserDaoImpl implements UserDao{
 				int blockedUserId = rs.getInt(1);// these are the blocked user id's for particular user
 				if (!IsDisabledUtility.isDisabled(blockedUserId) && !IsDeactivatedUtility.isDeactivated(blockedUserId)) {
 					String userIdstr = Integer.toString(blockedUserId);
-					list = getUser("userId", userIdstr); // getting the user details using the blocked userI
+					list = (List<User>) getUser("userId", userIdstr); // getting the user details using the blocked userI
 					list2.add(list.get(0));
 				}
 			}

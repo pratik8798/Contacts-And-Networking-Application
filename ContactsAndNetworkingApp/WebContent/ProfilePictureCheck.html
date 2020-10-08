@@ -8,6 +8,40 @@
 
 http=new XMLHttpRequest();
 
+function processSaveImageUsingAjax() {
+	
+	var file = document.querySelector("#profilePhoto").files[0];
+	var userName = document.querySelector("#name").value;
+	console.log(file+" "+userName)
+	const formatted_data = new FormData();
+	formatted_data.append('name', userName);
+	formatted_data.append('profilePhoto', file);
+	//console.log(formatted_data)
+	
+	http.onreadystatechange=displaySaveDataUsingAjax;
+
+	
+	http.open("POST", "saveImageAjax", true);
+	http.send(formatted_data);
+	
+}
+
+function displaySaveDataUsingAjax() {
+	if(http.readyState==4)
+	{
+		if (http.status == 200) 
+		{
+			res=http.responseText;
+			obj=JSON.parse(res);
+			
+			
+			document.getElementById("display").innerHTML=obj.message;
+		
+		}	
+		
+	}
+}
+
 function process() {
 	
 
@@ -24,6 +58,7 @@ function process() {
 	
 	
 }
+
 function displayData() {
 	if(http.readyState==4)
 	{
@@ -55,7 +90,7 @@ function displayData() {
 	<p>Click on the "Choose File" button to upload a file:</p>
 	
 	    
-	<form action="saveImage" method="post" enctype="multipart/form-data">
+	<form action="saveImageAjax" method="post" enctype="multipart/form-data">
 	
 		Name : <input type="text" name="name" id="name">
 		<br>
@@ -63,7 +98,7 @@ function displayData() {
 	  	<input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
 	  
 	  	<br>
-	  	<input type="submit" value="Upload">
+	  	<input type="button" onclick="processSaveImageUsingAjax()" value="Upload">
 	</form>
 	<br>
 	<br>

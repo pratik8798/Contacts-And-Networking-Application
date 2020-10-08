@@ -39,7 +39,7 @@ public class DeleteUserServlet extends HttpServlet {
 		JSONObject obj=new JSONObject();
 		if(adminDao.deleteUser(userId))
 		{
-			System.out.println("User disabled successfully");
+			System.out.println("User deleted successfully");
 			obj.put("message", "User deleted successfully");
 		}
 		else

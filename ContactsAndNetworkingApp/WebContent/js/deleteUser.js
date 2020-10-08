@@ -17,10 +17,12 @@
         
         for (i = 0; i < checkBoxes.length; i++) {
             if (checkBoxes[i].checked) {
+            	message+=checkBoxes[i].id
                 deleteUser(checkBoxes[i].id)
                 
             }
         }
+        alert(message)
  
         
 	}

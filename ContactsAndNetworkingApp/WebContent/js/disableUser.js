@@ -8,15 +8,17 @@
 	{
 		table = document.getElementById("tableOfDisabledUsers")
 		checkBoxes = table.getElementsByTagName("input");
-        message = ""
- 
+        
+ 		message=""
         
         for (i = 0; i < checkBoxes.length; i++) {
             if (checkBoxes[i].checked) {
+                message+=checkBoxes[i].id
                 disableUser(checkBoxes[i].id)
                 
             }
         }
+        alert(message)
  
         
 	}
@@ -24,7 +26,7 @@
 
 		
 		http.onreadystatechange=displayDisableUser;
-		
+		//alert(userId);
 		http.open("POST", "disableUser", true);
 		http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		http.send("userId="+userId);

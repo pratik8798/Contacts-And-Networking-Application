@@ -16,7 +16,6 @@ import org.json.simple.JSONObject;
 
 import com.hsbc.dao.UserDao;
 import com.hsbc.dao.UserDaoImpl;
-import com.hsbc.exceptions.UserNotFoundException;
 import com.hsbc.utility.DbUtility;
 
 public class UnBlockUserServlet extends HttpServlet {

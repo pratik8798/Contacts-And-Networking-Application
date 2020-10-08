@@ -1,0 +1,15 @@
+connect 'jdbc:derby:f:/HSBC/derbyDB/networkingdb';
+insert into Users values(default,'b','abc@gmail.com',4627378392,'female','2020-07-02','abc','abc','abc','abc','hsbc',null,'abc','sndvga');
+update activity set timestamp=registrationdate where timestamp is null;
+update activity set activehours=1 where activehours is null;
+insert into disabledusers values(124,false);
+update disabledusers set isdisabled=false where isdisabled=true;   
+
+insert into disabledusers values(102,false);
+insert into disabledusers values(101,false);
+insert into disabledusers values(103,false);
+insert into disabledusers values(104,false);
+insert into disabledusers values(105,false);
+insert into disabledusers values(106,false);
+insert into disabledusers values(107,false);
+insert into disabledusers values(108,false);

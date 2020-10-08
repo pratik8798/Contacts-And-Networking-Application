@@ -36,6 +36,7 @@ public interface UserDao {
 	String unblockUser(int blocker,int blocked);			//userId1 will unblock userId2
 	String sendFriendRequest(int senderId, int receiverId,String message);
 	
+
 	
 	
 	
