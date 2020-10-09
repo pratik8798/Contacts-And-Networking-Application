@@ -225,33 +225,202 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	@Override
-	public User getOneFriend(int userId1, int userId2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<User> getAllFriends(int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void removeFriend(int userId1, int userId2) {
-		// TODO Auto-generated method stub
+	public User getOneFriend(int userId1,int userId2){
+		Connection con =DBUtility.getConnection();
+		try {
+			Statement stmt=con.createStatement();
+			String st = "Select * from FriendList where friendOne="+userId1+" and friendTwo="+userId2;
+			ResultSet rs = stmt.executeQuery(st);
+//			ResultSet rs2=null; 
+			if(rs.next()) {
+				int friendId=rs.getInt(2);
+				String st2 = "select * from Users where userId="+friendId;
+				ResultSet rs2= stmt.executeQuery(st2);
+				if(rs2.next()) {
+					User friend = new User();
+					friend.setUserId(rs2.getInt(1));
+					friend.setFullName(rs2.getString(2));
+					friend.setEmail(rs2.getString(3));
+					friend.setPhoneNumber(rs2.getLong(4));
+					friend.setGender(rs2.getString(5));
+					friend.setDateOfBirth(rs2.getDate(6));
+					friend.setAddress(rs2.getString(7));
+					friend.setCity(rs2.getString(8));
+					friend.setState(rs2.getString(9));
+					friend.setCountry(rs2.getString(10));
+					friend.setCompany(rs2.getString(11));
+					friend.setUsername(rs2.getString(13));
+				return friend;
+				}
+			}
+//			else {
+//				throw new NotYourFriendException("you both are not friends .Sorry but you cannot see the person's details. To explore more please send him a friend request");
+//			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}return null;
 		
 	}
-
+	
 	@Override
-	public void blockFriend(int userId1, int userId2) {
-		// TODO Auto-generated method stub
-		
-	}
+	public List<User> getAllFriends(int userId){
+		Connection con =DBUtility.getConnection();
+		List<User> list = new ArrayList<User>();
+		try {
+			Statement stmt=con.createStatement();
+			String st = "Select * from FriendList where friendOne="+userId;
+			ResultSet rs = stmt.executeQuery(st);
+			ResultSet rs2=null;
+			while(rs.next()) {
 
-	@Override
-	public List<User> showPendingRequests(int userId1) {
-		// TODO Auto-generated method stub
+				int friendId=rs.getInt(2);
+//				Statement stmt3= con.createStatement();
+//				String st3 = "Select * from DeactivatedUsers where userId="+friendId;
+//				ResultSet rs3=stmt3.executeQuery(st3);
+//				if(!rs3.next()) {
+					if(!isDeactivated(friendId)) {////
+//					Statement stmt4= con.createStatement();
+//					String st4 = "Select * from  DisabledUsers where userId="+friendId;
+//					ResultSet rs4=stmt4.executeQuery(st4);
+					if(!isDisabled(friendId)) {
+						Statement stmt5= con.createStatement();
+						String st5 = "Select * from  BlockedUsers where userone="+userId+" and usertwo="+friendId;
+						ResultSet rs5=stmt5.executeQuery(st5);
+						if(!rs5.next()) {
+							Statement stmt2 = con.createStatement();
+							String st2 = "select * from Users where userId="+friendId;
+							rs2= stmt2.executeQuery(st2);
+							if(rs2.next()) {
+								User friend = new User();
+								friend.setUserId(rs2.getInt(1));
+								friend.setFullName(rs2.getString(2));
+								friend.setEmail(rs2.getString(3));
+								friend.setPhoneNumber(rs2.getLong(4));
+								friend.setGender(rs2.getString(5));
+								friend.setDateOfBirth(rs2.getDate(6));
+								friend.setAddress(rs2.getString(7));
+								friend.setCity(rs2.getString(8));
+								friend.setState(rs2.getString(9));
+								friend.setCountry(rs2.getString(10));
+								friend.setCompany(rs2.getString(11));
+								friend.setUsername(rs2.getString(13));
+								list.add(friend);
+							}
+						}
+					}//
+				}
+			}
+			return list;
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
+	}
+	
+	@Override
+	public String removeFriend(int userId1, int userId2) {
+		Connection con = DBUtility.getConnection();
+		try {
+			String st="delete from FriendList where friendOne=? and FriendTwo=?";
+			PreparedStatement pst=con.prepareStatement(st);
+			pst.setInt(1, userId1);
+			pst.setInt(2, userId2);
+			int numberOfRows=pst.executeUpdate();
+			
+			st="delete from BlockedUsers where userone=? and userTwo=?";
+			pst=con.prepareStatement(st);
+			pst.setInt(1, userId1);
+			pst.setInt(2, userId2);
+			pst.executeUpdate();
+			System.out.println(numberOfRows);
+			if(numberOfRows>0) {
+				return "success";
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	@Override
+	public String blockFriend(int userId1,int userId2) {
+		Connection con = DBUtility.getConnection();
+		String mssg="";
+		try {
+			Statement stmt= con.createStatement();
+			String st="select * from BlockedUsers where userOne="+userId1+" and userTwo="+userId2;
+			ResultSet rs = stmt.executeQuery(st);
+			if(rs.next()) {
+			}else {
+				String query="insert into BlockedUsers values (?,?)";
+				PreparedStatement pst=con.prepareStatement(query);
+				pst.setInt(1, userId1);
+				pst.setInt(2, userId2);
+				int numberOfRows=pst.executeUpdate();
+				if(numberOfRows>0) {
+					mssg="success";
+				}
+				Statement stmt2=con.createStatement();
+				String st2 = "select userTwo,count(userTwo) from BlockedUsers group by userTwo having userTwo="+userId2;
+				ResultSet rs2 =stmt2.executeQuery(st2);
+				if(rs2.next()) {
+					int numberOfTimesBlocked=rs2.getInt(2);
+					if(numberOfTimesBlocked>3) {
+//						Statement stmt3=con.createStatement();
+//						String st3="select * from DisabledUsers where userId="+userId2;
+//						ResultSet rs3=stmt3.executeQuery(st3);
+//						if(rs3.next()) {
+//						}else {
+							if(!isDisabled(userId2)) {
+								System.out.println("inserting in disabled");
+								query="insert into DisabledUsers values (?,FALSE)";
+								pst=con.prepareStatement(query);
+								pst.setInt(1, userId2);
+								pst.executeUpdate();
+//						}
+							}	
+					}
+				}
+				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return mssg;
+	}
+	
+	@Override
+	public HashMap<User,String> showPendingRequest(int userId){
+		Connection con =DBUtility.getConnection();
+		
+		HashMap<User,String> map = new  HashMap<User,String>();
+		try {
+			Statement stmt=con.createStatement();
+			String st = "Select * from PendingFriendList where userOne="+userId;
+			ResultSet rs = stmt.executeQuery(st);
+			while(rs.next()) {
+				int pendingId=rs.getInt(2);
+				Statement stmt2=con.createStatement();
+				String st2 = "Select * from Users where userId="+pendingId;
+				ResultSet rs2 = stmt2.executeQuery(st2);
+				if(rs2.next()) {
+					User u = new User();
+					u.setUsername(rs2.getString("userName"));
+					u.setFullName(rs2.getString("fullName"));
+//					u.setUserId(rs2.getInt("userId"));
+					String message = rs.getString("message");
+					map.put(u, message);
+				}
+			}
+			
+		return map;
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
+		
 	}
 
 	@Override

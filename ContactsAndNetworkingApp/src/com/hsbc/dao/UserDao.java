@@ -32,7 +32,7 @@ public interface UserDao {
 	List<User> getAllFriends(int userId);
 	void removeFriend(int userId1,int userId2);
 	void blockFriend(int userId1,int userId2);
-	List<User> showPendingRequests(int userId1);				//check name 's'
+	HashMap<User,String> showPendingRequest(int userId);			//check name 's'
 	String ignoreFriendRequest(int senderId,int receiverId);			
 	String acceptFriendRequest(int userId1,int userId2);
 	List<User> getBlockedUsers(int userId);					//check name 's'
