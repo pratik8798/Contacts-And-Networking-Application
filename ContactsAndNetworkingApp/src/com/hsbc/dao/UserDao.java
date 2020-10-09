@@ -5,6 +5,7 @@
  */
 package com.hsbc.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.hsbc.domain.Contact;
@@ -14,11 +15,13 @@ public interface UserDao {
 	
 	int getUserId(String userName);
 	
-	void addUser(User user);
-	User getUser(String field,String value);		// field=Name/Location/Company value 
+	void addUser(User user) throws SQLException;
+	List<User> getUser(String field,String value);		// field=Name/Location/Company value 
 	void deactivateUser(int userId);				//decide userId or userName
 	void updateUser(User user);						//decide userId,field,value or user object
-
+	
+	boolean activateUser(int userId);
+	
 	void addNewContact(int userId,Contact contact);			//addNewContact or addContact
 	Contact getContact(String field,String value);	// field=Name/Location/Company value
 	List<Contact> getAllContacts();
@@ -35,6 +38,8 @@ public interface UserDao {
 	List<User> getBlockedUsers(int userId);					//check name 's'
 	String unblockUser(int blocker,int blocked);			//userId1 will unblock userId2
 	String sendFriendRequest(int senderId, int receiverId,String message);
+
+	void updateActivity(int userId, boolean loginOrRegister,boolean loginOrLogout);
 	
 
 	
