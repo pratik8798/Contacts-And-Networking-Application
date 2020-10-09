@@ -141,14 +141,57 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public void deactivateUser(int userId) {
-		// TODO Auto-generated method stub
-		
+		try {
+			Connection con = DbUtility.getConnection(); 
+			
+			PreparedStatement myStmt = null;
+			myStmt =con.prepareStatement("insert into deactivatedUsers"
+					+ " (userId,timeOfDeactivation)"
+					+" values (?, CURRENT TIMESTAMP)");
+			myStmt.setInt(1,userId);
+			myStmt.executeUpdate();	
+			
+			
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void updateUser(User user) {
-		// TODO Auto-generated method stub
-		
+		try {
+			Connection con = DbUtility.getConnection();
+			PreparedStatement myStmt = null;
+			// prepare statement
+			myStmt=con.prepareStatement("update users set fullName = ?, email = ?, phoneNumber = ?,gender = ?,dateOfBirth = ?,address = ?,city = ?,state = ?,country = ?,company = ?,userName = ?,password = ? "
+					+"where userId = ?");
+			//myStmt.setString(1, theUser.getFirstName());
+			myStmt.setString(1,user.getFullName());
+			myStmt.setString(2, user.getEmail());
+			myStmt.setLong(3, user.getPhoneNumber());
+			myStmt.setString(4,user.getGender());
+			myStmt.setDate(5,(Date) user.getDateOfBirth());
+			myStmt.setString(6, user.getAddress());
+			myStmt.setString(7, user.getCity());
+			myStmt.setString(8, user.getState());
+			myStmt.setString(9, user.getCountry());
+			//myStmt.setBlob(11, user.getprofileImage());
+			myStmt.setString(10, user.getCompany());
+			myStmt.setString(11,user.getUsername());
+			myStmt.setString(12,user.getPassword());
+			
+			myStmt.setInt(13, user.getUserId());
+			
+			// execute SQL
+			int i;
+			i=myStmt.executeUpdate();	
+			System.out.println(i);
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
