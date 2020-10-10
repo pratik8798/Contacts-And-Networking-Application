@@ -1,3 +1,10 @@
+/*
+Name:Ayush Saxena
+Purpose: With the help of this servlet the user who is blocked by some other user can get unblocked
+
+*/
+
+
 package com.hsbc.servlets;
 
 import java.io.IOException;

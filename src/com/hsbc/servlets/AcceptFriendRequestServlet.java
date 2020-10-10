@@ -1,3 +1,12 @@
+/*
+
+Name:Ayush Saxena
+
+Purpose: This servlet is used for accepting the friend request by the receiver sent  to him by the  sender  
+
+
+*/
+
 package com.hsbc.servlets;
 
 import java.io.IOException;

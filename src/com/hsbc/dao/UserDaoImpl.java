@@ -1,7 +1,5 @@
 package com.hsbc.dao;
 
-// In PendingFriendRequestTable: userId1 = sender
-//In PendingFriendRequestTable: userId1 = reciever
 
 import java.sql.*;
 import java.sql.Date;
@@ -665,16 +663,19 @@ public class UserDaoImpl implements UserDao {
 
 	}
 
+	
 	@Override
+	/*
+	receiverId: The user who is going to ignore the friend request
+	senderId: The user whose request is getting ignored by the receiver
+	*/
 	public String ignoreFriendRequest(int receiverId, int senderId) {
-		// reciever = personIgnoring
-		// sender = person Ignored
+		
 
 		Connection con = DbUtility.getConnection();
 		try {
 
-			// delete from the table if recevier has having sender id as a pending request
-			// else return exception
+			
 			String query = "delete from PendingFriendList where userOne=? and userTwo=?";
 			PreparedStatement pst = con.prepareStatement(query);
 
@@ -697,11 +698,17 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	/*
+	
+	userId1: Receiver (The one who is going to accept the freind request)
+	userId2: Sender (The one who is sending freind request)
+	
+	*/
 	public String acceptFriendRequest(int userId1, int userId2) {
 
-		// receiver and userId2 = sender
+		
 		Connection con = DbUtility.getConnection();
-		String query = "insert into FRIENDLIST values(?,?)";
+		String query = "insert into FRIENDLIST values(?,?)";//Inserting into the Receiver's freindlist by accepting the request of sender
 
 		try {
 
@@ -714,7 +721,7 @@ public class UserDaoImpl implements UserDao {
 			if (c != 0)
 
 			{
-				String query1 = "delete from PendingFriendList where userOne=? and userTwo=?";
+				String query1 = "delete from PendingFriendList where userOne=? and userTwo=?";//Once the request is accepted deleting the request from pending list of receiver
 				psmt = con.prepareStatement(query1);
 				psmt.setInt(1, userId2);
 				psmt.setInt(2, userId1);
@@ -731,9 +738,11 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> getBlockedUsers(int userId) { // need a userId of the user for which we want to get blocked user
-													// as an argument
-		//
+	/*
+	This functions displays all the blocked users present in the list of user whose userId is received as an argument
+	
+	*/
+	public List<User> getBlockedUsers(int userId) {
 		Connection con = DbUtility.getConnection();
 		List<User> list = new ArrayList<>();
 		List<User> list2 = new ArrayList<>();
@@ -748,7 +757,7 @@ public class UserDaoImpl implements UserDao {
 				if (!IsDisabledUtility.isDisabled(blockedUserId)
 						&& !IsDeactivatedUtility.isDeactivated(blockedUserId)) {
 					String userIdstr = Integer.toString(blockedUserId);
-					list = getUser("userId", userIdstr); // getting the user details using the blocked userI
+					list = getUser("userId", userIdstr);  // getting the user details using the blocked user
 					list2.add(list.get(0));
 				}
 			}
@@ -761,12 +770,15 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public String unblockUser(int userId, int userId2) { // Getting the two userId's i.e sender and receiver
-		System.out.println(userId + "---->" + userId2); // unblocking
-		Connection con = DbUtility.getConnection(); // unblocked
+
+/* Getting the two userId's i.e sender and receiver
+   Getting Two Userid  Where userId=(The one who is unblocking ) usereId2=(The one who is getting Unblocked)
+	*/
+	public String unblockUser(int userId, int userId2) { 
+		System.out.println(userId + "---->" + userId2); 
+		Connection con = DbUtility.getConnection(); 
 		try {
-			// We need to unblock the user by deleting it form db only for the current user
-			// like userOne
+			
 			String query = "delete from BlockedUsers where userTwo=? and userOne=?";
 			String query2 = "Select count(*) from BLOCKEDUSERS where userTwo=" + userId2;
 
@@ -796,7 +808,7 @@ public class UserDaoImpl implements UserDao {
 
 				if (count <= 3) {
 					String query3 = "delete from DISABLEDUSERS where userId=?"; // checking if the user is disabled //
-																				// deleting
+																				
 					pst2 = con.prepareStatement(query3);
 					pst2.setInt(1, userId2);
 					c1 = pst2.executeUpdate();
@@ -822,6 +834,12 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	/*
+	senderId:The user is which is sending request
+	receiverId:The user which is receving request
+	message:The message which sender wants to send while sending request
+	*/
+	
 	public String sendFriendRequest(int senderId, int receiverId, String message) {
 		Connection con = DbUtility.getConnection();
 		String query = "insert into PendingFriendList values(?,?,?)";
@@ -834,8 +852,7 @@ public class UserDaoImpl implements UserDao {
 			e.printStackTrace();
 		}
 
-		List<User> listofBlocked = getBlockedUsers(receiverId); // got all the blocked user of particular user using
-																// receiver userid
+		List<User> listofBlocked = getBlockedUsers(receiverId);// Getting the blocked users of receivers using receiverId
 
 		for (User u : listofBlocked) {
 			if (u.getUserId() == senderId) // check if the sender is in block list of user or not
@@ -844,7 +861,7 @@ public class UserDaoImpl implements UserDao {
 			}
 		}
 
-		if (!isBlock && !isdeactivate) { // if the user is not blocked and the receiver is not deactivated
+		if (!isBlock && !isdeactivate) { //Condition checking if the sender is not blocked and the receiver is not deactivated
 			try {
 
 				PreparedStatement psmt = con.prepareStatement(query);

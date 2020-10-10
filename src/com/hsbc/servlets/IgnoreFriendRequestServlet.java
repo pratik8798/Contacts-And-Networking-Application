@@ -1,3 +1,11 @@
+/*
+
+Name:Ayush Saxena
+
+Purpose: This servlet is helping the receiver for ignoring the friend request sent to him by sender
+
+*/
+
 package com.hsbc.servlets;
 
 import java.io.IOException;

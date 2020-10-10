@@ -1,3 +1,9 @@
+/*
+
+Name:Ayush Saxena
+Purpose: This servlet helps in getting the list of all blocked users of the user who is logged in
+*/
+
 package com.hsbc.servlets;
 
 import java.io.IOException;

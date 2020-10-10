@@ -1,3 +1,15 @@
+/*
+
+
+Name:Ayush Saxena
+Purpose: This servlet is used for sending request 
+
+*/
+
+
+*/
+
+
 package com.hsbc.servlets;
 
 import java.io.IOException;
