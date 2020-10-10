@@ -18,6 +18,12 @@ import org.json.simple.JSONObject;
 
 import com.hsbc.dao.UserDaoImpl;
 
+/* The Servlet is mapped to URl removeFriend and receives a post request with two parameters 
+ * username1 and username2 and calls the removeFriend dao function to remove the username2 as the friend of username1
+ * and returns a message conveying if the removal was successful or the if they were not friends in actual.
+ * Author: Vaibhav Narkhede
+ */
+
 public class RemoveFriendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

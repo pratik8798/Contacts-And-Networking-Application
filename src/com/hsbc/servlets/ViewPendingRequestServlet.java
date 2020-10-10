@@ -23,6 +23,12 @@ import org.json.simple.JSONObject;
 import com.hsbc.dao.UserDaoImpl;
 import com.hsbc.domain.User;
 
+/*The Servlet is mapped to the URL viewPendingRequest and recieves a post request with parameter userName 
+ * and returns a JSON object containing users who are pending to be friends. This list is received from the 
+ * dao method which is called in the servlet ,the ShowPendingRequest function
+ * Author: Vaibhav Narkhede
+ */
+
 public class ViewPendingRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

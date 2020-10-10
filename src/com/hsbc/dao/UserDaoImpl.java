@@ -423,6 +423,10 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User getOneFriend(int userId1, int userId2) {
+		/* The function takes in two parameters userid1  as id of the person
+		 *  and userid2 as the id of friend whose information he wants to see 
+		 *  and returns the friend.
+		 */
 		Connection con = DbUtility.getConnection();
 		try {
 			Statement stmt = con.createStatement();
@@ -477,6 +481,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> getAllFriends(int userId) {
+		/* The function takes in argument as the userId of the person and return all his friends 
+		 * the friend can be only seen if he is not deactivated nor disabled nor blocked.
+		 */
 		Connection con = DbUtility.getConnection();
 		List<User> list = new ArrayList<User>();
 		try {
@@ -546,6 +553,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public String removeFriend(int userId1, int userId2) {
+		/*the function takes in two parameters userid1, id of person who wants to remove userid2 as his friend.
+		 * and returns String message if the removal is succesful or not.
+		 */
 		Connection con = DbUtility.getConnection();
 		try {
 			String st = "delete from FriendList where friendOne=? and FriendTwo=?";
@@ -571,6 +581,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public String blockFriend(int userId1, int userId2) {
+		/*This function gives ability to user with userId1 to block his friend with userId2
+		 * and it also makes a userId2 disabled if the userId2 is blocked by more than 3 people.
+		 */
 		Connection con = DbUtility.getConnection();
 		String mssg = "";
 		try {
@@ -617,6 +630,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public HashMap<User, String> showPendingRequest(int userId) {
+		/*The function takes in argument as the userId of the person and return a list of the users 
+		 * who had sent him a friendRequest and is not yet approved.
+		 */
 		Connection con = DbUtility.getConnection();
 
 		HashMap<User, String> map = new HashMap<User, String>();

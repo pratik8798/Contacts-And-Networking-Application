@@ -5,6 +5,10 @@ import java.sql.*;
 public class Encryption {
 		
 	public static String GeneratePassword(String password) {
+		/*This function takes a user entered password as an argument and uses the userId from the 
+		 * users table as a Salt and returns the hash of salt and user which is obtained by calling
+		 * the create password method
+		 */
 		String newPassword=null;
 		try {
 			int defaultSalt=0;

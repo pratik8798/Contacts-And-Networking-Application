@@ -9,6 +9,11 @@ import java.sql.Statement;
 public class Decryption {
 	public static boolean verifyPassword(String userPassKey, int userId)
 	{
+		/*
+		 * The function takes 2 parameres userId and the user entered password computes the Hash
+		 * and checks withthe hash stored in the database and returns a boolean value indicating 
+		 * if the user is authenticated user or not.
+		 */
 	
 		userPassKey=CreatePassword.createPassword(userId, userPassKey);
 		System.out.println(userPassKey);

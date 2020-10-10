@@ -15,6 +15,13 @@ import com.hsbc.dao.UserDaoImpl;
 
 import java.sql.*;
 import java.util.Base64;
+
+/* The Servlet is mapped to URL viewOneFriend and recieves a post request with 2 parameters username 1 and username 2 
+ * and returns a JSON object containing the user object as received from the dao class .This functionality is achieved 
+ * by calling the viewOneFriend method of the Dao class.
+ * Author: Vaibhav Narkhede
+ */
+
 public class ViewOneFriendServlet extends HttpServlet {
 
 

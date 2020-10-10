@@ -21,6 +21,12 @@ import org.json.simple.JSONObject;
 import com.hsbc.dao.UserDaoImpl;
 import com.hsbc.domain.User;
 
+/*The servlet is mapped to URL viewAllFriend and receives a post request witha a parameter Username whose all 
+ * friends are needed and returns a Json object containing list of users. This functionality is achieved by calling 
+ * up the getAllFriends function of the dao class.
+ * Author: Vaibhav Narkhede
+ */
+
 public class ViewAllFriendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

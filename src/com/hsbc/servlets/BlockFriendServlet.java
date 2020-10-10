@@ -17,6 +17,12 @@ import org.json.simple.JSONObject;
 
 import com.hsbc.dao.UserDaoImpl;
 
+/*The Servlet is mapped to url blockFriend and recieves a post request with
+ * two parameters username1 and username2  and calls the BlockFriend Dao function and returns a
+ * message if the person was added to the block list or not.
+ * Author: Vaibhav Narkhede
+ */
+
 public class BlockFriendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
