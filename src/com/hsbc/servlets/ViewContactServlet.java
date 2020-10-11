@@ -1,3 +1,9 @@
+/* Name: Sahil Sharma
+ * This servlet accepts the userName of the user and 
+ * the field, value on the basis of which it wants to fetch the contacts list.
+ * It gets the userId from getUser method and then pass the desired values to the getContact method
+ * to get the result list of contacts.*/
+
 package com.hsbc.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;

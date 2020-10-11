@@ -42,6 +42,7 @@ public class UserDaoImpl implements UserDao {
 	
 	@Override
 	public int getContactId(String email) {
+		/* This method simply takes the contact's email and returns its contactId*/
 		Connection con = DbUtility.getConnection();
 		String query = "SELECT contactId from contacts where email=?";
 		int contactId = 0;
@@ -221,9 +222,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void addNewContact(int userId, Contact contact) throws SQLException { // this method adds the contact into
-																					// contact object and
-		// also an entry in contactUser table
+	public void addNewContact(int userId, Contact contact) throws SQLException { 
+		/* This method adds a contact for a user based on checks 
+		 * whether its already a contact of any other user or not*/
 		Connection con = DbUtility.getConnection();
 		int execute;
 		String query = "insert into contacts (fullName, email, phoneNumber, gender, dateOfBirth, address, city, state, country, company) "
@@ -263,7 +264,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Contact> getContact(int userId, String field, String value) throws ContactNotExistException { 
-		// This method returns the list of all contacts based on some filters
+		/* This method return a list of contacts for a user based on search filters like gender, city, etc.
+		 * It takes the user id the field name on what basis of filtration he wants the contacts,
+		 * and the value for the field.*/ 
 		Connection con = DbUtility.getConnection();
 		List<Contact> contactList = new ArrayList<Contact>();
 		try {
@@ -314,8 +317,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<Contact> getAllContacts(int userId) throws ContactNotExistException { // This method returns the list of
-		// all contacts
+	public List<Contact> getAllContacts(int userId) throws ContactNotExistException { 
+		/* This method returns a list of all contacts
+		 * for a particular user by taking its userId*/
 		Connection con = DbUtility.getConnection();
 		List<Contact> contactList = new ArrayList<Contact>();
 		try {
@@ -356,9 +360,10 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public String removeContact(int userId, int contactId) { // This method removes contact for a particular user as
-		// well deleted from records if it has no other
-		// connections
+	public String removeContact(int userId, int contactId) {
+		/* This method removes contact for a particular user as
+		 * well delete it from the records if it has no other
+		 * connections. */
 		Connection con = DbUtility.getConnection();
 		String message = "";
 		try {
@@ -393,6 +398,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public String updateContact(Contact contact) {
+		/*This method simply updates the Contact details in the contact table*/
 		Connection con = DbUtility.getConnection();
 		int executed;
 		try {

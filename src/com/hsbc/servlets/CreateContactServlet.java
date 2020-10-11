@@ -1,3 +1,8 @@
+/* Name: Sahil Sharma
+ * This Servlet accepts the userName and the contact details of the contact the user want to add to his contact list.
+ * We fetch the userId from the method getUserId and then passes the userId and Contact object to the addNewContact method
+ * to add the new contact to his contact list.*/
+
 package com.hsbc.servlets;
 
 import java.io.IOException;

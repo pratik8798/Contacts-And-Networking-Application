@@ -1,3 +1,7 @@
+/* Name: Sahil Sharma
+ * This servlet accepts the new edited details of the contact  
+ * then calls the updateContact methods to update it in the details.*/
+
 package com.hsbc.servlets;
 
 import java.io.IOException;

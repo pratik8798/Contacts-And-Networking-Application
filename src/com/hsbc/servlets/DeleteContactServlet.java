@@ -1,3 +1,9 @@
+/* Name: Sahil Sharma 
+ * This servlet accepts the userName of the user and 
+ * the contact email of the contact. Then it passes the userId and contactId
+ * received from getUserId and getContactId respectively to the removeContact method
+ * which deletes the contact realtion of the user.*/
+
 package com.hsbc.servlets;
 
 import java.io.IOException;
