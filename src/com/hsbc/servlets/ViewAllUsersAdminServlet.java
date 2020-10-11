@@ -18,7 +18,6 @@ import com.hsbc.dao.AdminDaoImpl;
 import com.hsbc.domain.User;
 import com.hsbc.utility.IsDeactivatedUtility;
 import com.hsbc.utility.IsDisabledUtility;
-
 /**
  *
  * Servlet to view list of users
@@ -29,7 +28,7 @@ import com.hsbc.utility.IsDisabledUtility;
  * 
  * 
  */
-public class ViewAllUsersAdminServlet extends HttpServlet {
+public class ViewAllUsersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
   
@@ -67,37 +66,6 @@ public class ViewAllUsersAdminServlet extends HttpServlet {
 		
 		pw.println(jsonText);
 		pw.close();
-		
-		/*
-		String text="";
-		text+="<tr>"+
-				"<th> User Id </th>"+
-				"<th> User Name </th>"+
-				"<th> User Location </th>"+
-				"</tr>";
-		for(User u:list)
-		{
-			text+="<tr>"+
-					"<td>"+ u.getUserId() +"</td>"+
-					"<td>"+ u.getUsername() +"</td>"+
-					"<td>"+ u.getCity()+", "+u.getState()+", "+u.getCountry() +"</td>"+
-					"</tr>";
-		}
-				
-		pw.println("<html>");
-			pw.println("<body>");
-				
-				pw.println("<h2>List of all users </h2><br>");
-				pw.println("<table border=2>");
-					pw.println(text);
-				pw.println("</table>");
-					
-					
-			pw.println("</body>");
-		pw.println("</html>");
-		pw.close();
-		
-		*/
 		
 	}
 

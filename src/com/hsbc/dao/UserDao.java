@@ -1,7 +1,6 @@
 /**
  * Name : UserDao.java
  * Use : Interface for UserDaoImpl
- * Issues : naming issues, userId or userName conflict
  */
 package com.hsbc.dao;
 

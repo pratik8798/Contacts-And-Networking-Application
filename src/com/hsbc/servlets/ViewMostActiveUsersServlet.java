@@ -3,7 +3,6 @@ package com.hsbc.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,34 +18,34 @@ import com.hsbc.dao.AdminDao;
 import com.hsbc.dao.AdminDaoImpl;
 import com.hsbc.domain.User;
 
+
 /**
  *
- * Servlet to view list of possible users to be disabled 
- * 
+ * Servlet to view list of most active users
  * Receives : None
- * Output : disabledUsersList
- * 				disabledUsersList : JSONArray of users object
- * 				user object consists of : userId, userName, Location
+ * Output : usersList
+ * 				usersList : JSONArray of users object
+ * 				user object consists of : userId, userName, Location, active hours sorted as per active hours
+ * 
+ * 
  */
-public class ViewAllDisabledUsersServlet extends HttpServlet {
+public class ViewMostActiveUsersServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter pw=response.getWriter();
+PrintWriter pw=response.getWriter();
 		
 		AdminDao adminDao=new AdminDaoImpl();
 		
-		HashMap<User,Boolean> hash=adminDao.listOfPossibleDisabledUsers(); 
-		
+		HashMap<User, Double> hash=adminDao.listOfMostActiveUsers(); 
 		
 		JSONArray array=new JSONArray();
 		String jsonText="";
 		
-		for(Map.Entry<User, Boolean> s:hash.entrySet() )
+		for(Map.Entry<User, Double> s:hash.entrySet() )
 		{
 			User u=s.getKey();
-			boolean b=s.getValue();
+			double activeHours=s.getValue();
 			
 			JSONObject obj=new JSONObject();
 
@@ -54,22 +53,22 @@ public class ViewAllDisabledUsersServlet extends HttpServlet {
 			obj.put("userId",u.getUserId() );
 			obj.put("userName", u.getUsername());
 			obj.put("location", u.getCity()+", "+u.getState()+", "+u.getCountry() );
-			obj.put("isDisabled", b);
+			obj.put("activeHours", activeHours);
 			array.add(obj);
 		}
 
 		
-		JSONObject disabledUsers=new JSONObject();
-		disabledUsers.put("disabledUsersList", array);
+		JSONObject mostActiveUsers=new JSONObject();
+		mostActiveUsers.put("mostActiveUsersList", array);
 		
 		
 		StringWriter out=new StringWriter();
-		disabledUsers.writeJSONString(out);
+		mostActiveUsers.writeJSONString(out);
 		jsonText=out.toString();
 		
 		pw.println(jsonText);
 		pw.close();
-	
+
 	}
 
 }

@@ -29,26 +29,24 @@ public class AdminDaoImpl implements AdminDao{
 
 	@Override
 	public Admin getAdmin(String userName,String password) {
-		
+		/**
+		 * 
+		 * Input : takes username and password to check credentials
+		 * Output : If username and password matches, returns admin object else null
+		 * 
+		 * Reads an xml file containing admin information to authenticate the admin
+		 */
 		boolean flag=false;
 		Admin admin=new Admin();
 		try {
 
 			DocumentBuilderFactory factory=DocumentBuilderFactory.newInstance();
-
 			DocumentBuilder builder=factory.newDocumentBuilder();
-	
-			//String basePath = new File("").getAbsolutePath();
-		    
-			//System.out.println(basePath);
-		    
-			File inputFile=new File("C:\\Users\\mohit\\Documents\\GitHub\\Contacts-And-Networking-Application\\Contacts-And-Networking-Application\\ContactsAndNetworkingApp\\resources\\Admin.xml");
-			
+   
+			File inputFile=new File("F:\\CODEFURY\\ContactsAndNetworkingApp\\resources\\Admin.xml");
 			Document doc=builder.parse(inputFile);
 			
-			doc.getDocumentElement().normalize();
-			
-			
+			doc.getDocumentElement().normalize();			
 			NodeList listOfAdmins=doc.getElementsByTagName("admin");
 			
 			for(int i=0;i<listOfAdmins.getLength();i++)
@@ -74,7 +72,7 @@ public class AdminDaoImpl implements AdminDao{
 					}
 					else if(adminUserName.equals(userName) && !adminPassword.equals(password))
 					{
-						//System.out.println("Wrong Password exception");
+						System.out.println("Wrong Password");
 					}
 					
 					
@@ -84,15 +82,13 @@ public class AdminDaoImpl implements AdminDao{
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(!flag)
 		{
-			//System.out.println("Login credentials failed");
+			System.out.println("Login credentials failed");
 		}
 		
 		
@@ -101,7 +97,16 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public List<User> getTotalUsers() {
+	public List<User> getTotalUsers()
+	{
+		/**
+		 * 
+		 * Input : No input required
+		 * Output : Returns List of all users
+		 * 
+		 * Gets basic user details like user name, location of all users.
+		 * 
+		 */
 		Connection con=DbUtility.getConnection();
 		String query="SELECT userId,userName,city,state,country from Users";
 		ArrayList<User> users=new ArrayList<>();
@@ -121,10 +126,12 @@ public class AdminDaoImpl implements AdminDao{
 				users.add(u);
 				
 			}
-			
+			rs.close();
+			stmt.close();
 			con.close();
 
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
 		}
 		return users;
@@ -132,6 +139,16 @@ public class AdminDaoImpl implements AdminDao{
 
 	@Override
 	public boolean disableUser(int userId) {
+		
+		/**
+		 * 
+		 * Input : user id
+		 * Output : returns whether disabled successfully or not
+		 * 
+		 * Disables the user and updates the entry in disabledUsers
+		 * 
+		 */
+		
 		Connection con=DbUtility.getConnection();
 		String query="update DisabledUsers set isDisabled = true where userId = ?";
 		int count=0;
@@ -142,10 +159,11 @@ public class AdminDaoImpl implements AdminDao{
 			count=ps.executeUpdate();
 			if(count==0)
 			{
-				//System.out.println("User not found exception");
+				System.out.println("User not found exception");
 			}
 			
-			
+
+			ps.close();
 			con.close();
 
 		} catch (SQLException e) {
@@ -156,6 +174,16 @@ public class AdminDaoImpl implements AdminDao{
 
 	@Override
 	public boolean deleteUser(int userId) {
+		
+		/**
+		 * 
+		 * Input : user id
+		 * Output : returns whether deleted successfully or not
+		 * 
+		 * deletes the user entry from user table
+		 * 
+		 */
+		
 		Connection con=DbUtility.getConnection();
 		String query="delete from Users where userId = ?";
 		int count=0;
@@ -166,9 +194,10 @@ public class AdminDaoImpl implements AdminDao{
 			count=ps.executeUpdate();
 			if(count==0)
 			{
-				//System.out.println("User not found exception");
+				System.out.println("User not found exception");
 			}
 			
+			ps.close();
 			con.close();
 
 		} catch (SQLException e) {
@@ -179,44 +208,42 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public HashMap<User,Boolean> listOfPossibleDisabledUsers() {			
+	public HashMap<User,Boolean> listOfPossibleDisabledUsers() {	
+		/**
+		 * 
+		 * Input : No input required
+		 * Output : Returns List of users who can be disabled by admin
+		 * 
+		 * Gets basic user details like user name, location  and disabled status of users  who can be disabled
+		 * 
+		 */
 		Connection con=DbUtility.getConnection();
-		String query="select * from DisabledUsers";
-		
-		ArrayList<User> users=new ArrayList<>();
-		
+		String query=" select disabledusers.userid,username,city,state,country,isdisabled from disabledusers left join users on users.userid=disabledusers.userid";
+				
 		HashMap<User, Boolean> hash=new HashMap<>();
+
 		
-		String getUserQuery="SELECT userId,userName,city,state,country from Users where userId=?";
 		
 		try {
 			
-			Statement stmt=con.createStatement();
+			Statement stmt=con.createStatement();	
 			
 			ResultSet rs=stmt.executeQuery(query);
-			
-			PreparedStatement ps=con.prepareStatement(getUserQuery);
-			
+						
 			while (rs.next()) {
 				
-				int userId=rs.getInt(1);
-				ps.setInt(1, userId);
-				
-				ResultSet user=ps.executeQuery();
-				
-				while (user.next()) {
-					User u=new User();
-					u.setUserId(user.getInt(1));
-					u.setUsername(user.getString(2));
-					u.setCity(user.getString(3));
-					u.setState(user.getString(4));
-					u.setCountry(user.getString(5));
-					users.add(u);
-					hash.put(u, rs.getBoolean(2));
-				}
+				User u=new User();
+				u.setUserId(rs.getInt(1));
+				u.setUsername(rs.getString(2));
+				u.setCity(rs.getString(3));
+				u.setState(rs.getString(4));
+				u.setCountry(rs.getString(5));
+				hash.put(u, rs.getBoolean(6));
+
 				
 			}
-			
+			rs.close();
+			stmt.close();
 			con.close();
 
 		} catch (SQLException e) {
@@ -226,47 +253,98 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public HashMap<User,Double> listOfPossibleDeletedUsers() {
+	public HashMap<User, Double> listOfPossibleDeletedUsers() {
+		/**
+		 * 
+		 * Input : No input required
+		 * Output : Returns List of users who can be deleted by admin
+		 * 
+		 * Gets basic user details like user name, location of users and activeHours who can be deleted
+		 * 
+		 */
 		Connection con=DbUtility.getConnection();
-		final double MINIMUM_HOURS=2;
+		final int MINIMUM_HOURS=2;
 		
-		String query="select userId,activeHours from activity where activeHours < ?";
-		
-		ArrayList<User> users=new ArrayList<>();
-		
+		String query=" select activity.userid,username,city,state,country,activeHours from activity left join users on users.userid=activity.userid where activehours< ?";		
 		HashMap<User, Double> hash=new HashMap<>();
 		
-		String getUserQuery="SELECT userId,userName,city,state,country from Users where userId=?";
+		
 		
 		try {
 			
 			PreparedStatement ps1=con.prepareStatement(query);
-			ps1.setDouble(1, MINIMUM_HOURS);
+			ps1.setInt(1, MINIMUM_HOURS);
 			
 			ResultSet rs=ps1.executeQuery();
 			
-			PreparedStatement ps2=con.prepareStatement(getUserQuery);
-			
 			while (rs.next()) {
 				
-				int userId=rs.getInt(1);
-				ps2.setInt(1, userId);
+				User u=new User();
+				u.setUserId(rs.getInt(1));
+				u.setUsername(rs.getString(2));
+				u.setCity(rs.getString(3));
+				u.setState(rs.getString(4));
+				u.setCountry(rs.getString(5));
+				hash.put(u, rs.getDouble(6));
 				
-				ResultSet user=ps2.executeQuery();
 				
-				while (user.next()) {
-					User u=new User();
-					u.setUserId(user.getInt(1));
-					u.setUsername(user.getString(2));
-					u.setCity(user.getString(3));
-					u.setState(user.getString(4));
-					u.setCountry(user.getString(5));
-					users.add(u);
-					hash.put(u, rs.getDouble(2));
-				}
 				
 			}
 			
+			rs.close();
+			ps1.close();
+			con.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return hash;		
+	}
+	
+	@Override
+	public LinkedHashMap<User,Double> listOfMostActiveUsers() {
+		
+		/**
+		 * 
+		 * Input : No input required
+		 * Output : Returns List of most active users based on activityHours.
+		 * 
+		 * Gets basic user details like user name, location of user and activeHours
+		 * 
+		 */
+		Connection con=DbUtility.getConnection();
+		
+		
+		String query=" select activity.userid,username,city,state,country,activeHours from activity left join users on users.userid=activity.userid order by activeHours desc fetch first 5 rows only";
+		
+		
+		LinkedHashMap<User, Double> hash=new LinkedHashMap<>();
+		
+		
+		
+		try {
+			
+			PreparedStatement ps1=con.prepareStatement(query);
+			
+			
+			ResultSet rs=ps1.executeQuery();
+			
+			while (rs.next()) {
+				
+				User u=new User();
+				u.setUserId(rs.getInt(1));
+				u.setUsername(rs.getString(2));
+				u.setCity(rs.getString(3));
+				u.setState(rs.getString(4));
+				u.setCountry(rs.getString(5));
+				hash.put(u, rs.getDouble(6));
+				
+				
+				
+			}
+			
+			rs.close();
+			ps1.close();
 			con.close();
 
 		} catch (SQLException e) {
@@ -275,4 +353,6 @@ public class AdminDaoImpl implements AdminDao{
 		return hash;		
 	}
 
+	
 }
+

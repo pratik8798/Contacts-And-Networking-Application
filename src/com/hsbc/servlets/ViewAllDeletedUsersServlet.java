@@ -4,7 +4,7 @@
  * Receives : None
  * Output : deletedUsersList
  * 				deletedUsersList : JSONArray of users object
- * 				user object consists of : userId, userName, Location
+ * 				user object consists of : userId, userName, Location, active hours
  * 
  * 
  */
@@ -51,7 +51,6 @@ public class ViewAllDeletedUsersServlet extends HttpServlet {
 			JSONObject obj=new JSONObject();
 
 			
-			//System.out.println(u.getUserId()+"\t"+u.getUsername()+"\t"+b);
 			obj.put("userId",u.getUserId() );
 			obj.put("userName", u.getUsername());
 			obj.put("location", u.getCity()+", "+u.getState()+", "+u.getCountry() );
@@ -71,44 +70,6 @@ public class ViewAllDeletedUsersServlet extends HttpServlet {
 		pw.println(jsonText);
 		pw.close();
 
-		
-		/*
-		String text="";
-		text+="<tr>"+
-				"<th> User Id </th>"+
-				"<th> User Name </th>"+
-				"<th> User Location </th>"+
-				"<th> Active hours </th>"+
-				"</tr>";
-		
-		for(Map.Entry<User, Integer> s:hash.entrySet() )
-		{
-			User u=s.getKey();
-			int activeHours=s.getValue();
-			//System.out.println(u.getUserId()+"\t"+u.getUsername()+"\t"+activeHours);
-			text+="<tr>"+
-					"<td>"+ u.getUserId() +"</td>"+
-					"<td>"+ u.getUsername() +"</td>"+
-					"<td>"+ u.getCity()+", "+u.getState()+", "+u.getCountry() +"</td>"+
-					"<td>"+ activeHours+"</td>"+
-					"</tr>";
-		}
-		
-		
-		pw.println("<html>");
-			pw.println("<body>");
-				
-				pw.println("<h2>List of all users that can be disabled </h2><br>");
-				pw.println("<table border=2>");
-					pw.println(text);
-				pw.println("</table>");
-					
-					
-			pw.println("</body>");
-		pw.println("</html>");
-		pw.close();
-		
-		*/
 		}
 
 }

@@ -61,18 +61,7 @@ public class DisableUserServlet extends HttpServlet {
 		
 		pw.println(jsonText);
 		pw.close();
-		
-		/*
-		if(adminDao.disableUser(userId))
-		{
-			pw.println("User disabled successfully");
-		}
-		else
-		{
-			pw.println("User not found");
-		}
-		pw.close();
-		*/
+	
 	}
 
 }

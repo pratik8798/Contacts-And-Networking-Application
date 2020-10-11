@@ -886,24 +886,34 @@ public class UserDaoImpl implements UserDao {
 		return "";
 
 	}
-
-	@Override
+@Override
 	public boolean activateUser(int userId) {
 
-		Connection con = DbUtility.getConnection();
-		String query = "delete from deactivatedUsers where userId = ?";
-		int count = 0;
+		/**
+		 * 
+		 * Input : user id
+		 * Output : returns whether user account is activated successfully or not
+		 * 
+		 * activates the user and removes the entry in deactivatedUsers table
+		 * 
+		 */
+		Connection con=DbUtility.getConnection();
+		String query="delete from deactivatedUsers where userId = ?";
+		int count=0;
 		try {
-
-			PreparedStatement ps = con.prepareStatement(query);
+			
+			PreparedStatement ps=con.prepareStatement(query);
 			ps.setInt(1, userId);
-			count = ps.executeUpdate();
-			if (count == 0) {
-				// System.out.println("User not found exception");
-			} else {
-				System.out.println("Activated user : " + userId);
+			count=ps.executeUpdate();
+			if(count==0)
+			{
+				System.out.println("User not found ");
 			}
-
+			else
+			{
+				System.out.println("Activated user : "+userId);
+			}
+			
 			ps.close();
 			con.close();
 
@@ -911,100 +921,127 @@ public class UserDaoImpl implements UserDao {
 			e.printStackTrace();
 		}
 
-		return count != 0;
+		return count!=0;
 	}
-
+	
 	@Override
-	public void updateActivity(int userId, boolean loginOrRegister, boolean loginOrLogout) {
-		// remove active hours
-		// login = false register = true
-		// login = false logout = true
-		Connection con = DbUtility.getConnection();
-
-		if (loginOrRegister) {
+	public void updateActivity(int userId,boolean loginOrRegister,boolean loginOrLogout) {
+		/**
+		 * 
+		 * Input : user id, loginOrRegister,loginOrLogout flag
+		 * 
+		 * 
+		 * loginOrRegister flag values : login = false register = true 
+		 * loginOrLogout flag values : login = false logout = true
+		 * 
+		 * Output : returns whether disabled successfully or not
+		 * 
+		 * Updates activity of user in activity table
+		 * 1)While Registering : insert an entry in activity table
+		 * 2)While logging in : update timestamp of user
+		 * 3)While logging out : update timestamp and calculate activeHours of user 
+		 * 
+		 */
+		
+		Connection con=DbUtility.getConnection();
+		
+		if(loginOrRegister)
+		{
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			String query = "insert into activity values(?,?,?,?)";
-
+			String query="insert into activity values(?,?,?,?)";
+			
 			try {
-
-				PreparedStatement ps = con.prepareStatement(query);
+				
+				PreparedStatement ps=con.prepareStatement(query);
 				ps.setInt(1, userId);
 				ps.setTimestamp(2, timestamp);
 				ps.setTimestamp(3, timestamp);
 				ps.setInt(4, 0);
-
-				int c = ps.executeUpdate();
-				if (c != 0) {
-					System.out.println("Activity inserted for id : " + userId);
+				
+				int c=ps.executeUpdate();
+				if(c!=0)
+				{
+					System.out.println("Activity inserted for id : "+userId);
 				}
-
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
-		} else {
+			
+		}
+		else
+		{
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			String query = "update activity set timestamp=? where userId = ?"; // change activity to current
-																				// login/logout time
-
-			int count = 0, count2 = 0;
+			String query="update activity set timestamp=? where userId = ?";					
+			int count=0,count2=0;
 			try {
-
-				if (loginOrLogout) {
+				
+				
+				
+				if(loginOrLogout)
+				{
 					// logging out requires activeHours update
-
-					String query1 = "select timestamp,activeHours from activity where userId=?";
-					PreparedStatement ps1 = con.prepareStatement(query1);
+					
+					String query1="select timestamp,activeHours from activity where userId=?";
+					PreparedStatement ps1=con.prepareStatement(query1);
 					ps1.setInt(1, userId);
-					ResultSet rs = ps1.executeQuery();
-
-					Timestamp loginTimestamp = null;
-					double activeHours = 0;
-					while (rs.next()) {
-						loginTimestamp = rs.getTimestamp(1);
-						activeHours = rs.getDouble(2);
+					ResultSet rs=ps1.executeQuery();
+					
+					Timestamp loginTimestamp=null;
+					double activeHours=0;
+					while(rs.next())
+					{
+						loginTimestamp=rs.getTimestamp(1);
+						activeHours=rs.getDouble(2);
 					}
-
-					System.out.println("Login Timestamp : " + loginTimestamp);
-					System.out.println("Logout Timestamp : " + timestamp);
-					System.out.println("Active hours before : " + activeHours);
-
+					
+					System.out.println("Login Timestamp : "+loginTimestamp);
+					System.out.println("Logout Timestamp : "+timestamp);
+					System.out.println("Active hours before : "+activeHours);
+					
 					long milliseconds1 = loginTimestamp.getTime();
 					long milliseconds2 = timestamp.getTime();
-
+					
 					long diff = milliseconds2 - milliseconds1;
-					float diffSeconds = (float) diff / 1000;
-					float diffMinutes = (float) diff / (60 * 1000);
-					float diffHours = (float) diff / (60 * 60 * 1000);
-					float diffDays = (float) diff / (24 * 60 * 60 * 1000);
-
-					System.out.println("Hours : " + diffHours);
-					System.out.println("Active hours after : " + (activeHours + diffHours));
-
-					activeHours += diffHours;
-
-					String query2 = "update activity set activeHours=?where userId=?";
-					PreparedStatement ps2 = con.prepareStatement(query2);
+					float diffSeconds = (float)diff / 1000;
+					float diffMinutes = (float)diff / (60 * 1000);
+					float diffHours = (float)diff / (60 * 60 * 1000);
+					float diffDays = (float)diff / (24 * 60 * 60 * 1000);
+					
+					System.out.println("Hours : "+diffHours);
+					System.out.println("Active hours after : "+(activeHours+diffHours));
+					
+					activeHours+=diffHours;
+					
+					String query2="update activity set activeHours=?where userId=?";
+					PreparedStatement ps2=con.prepareStatement(query2);
 					ps2.setDouble(1, activeHours);
 					ps2.setInt(2, userId);
-					count2 = ps2.executeUpdate();
+					count2=ps2.executeUpdate();
 					ps2.close();
 
-				}
 
-				// update timestamp same for login and logout
-				PreparedStatement ps = con.prepareStatement(query);
+				}
+				
+				//update timestamp same for login and logout
+				PreparedStatement ps=con.prepareStatement(query);
+				
 
 				ps.setTimestamp(1, timestamp);
 				ps.setInt(2, userId);
-
-				count = ps.executeUpdate();
-				if (count == 0) {
-					// System.out.println("User not found exception");
-				} else {
-					System.out.println("Timestamp updated for id : " + userId);
+				
+				
+				count=ps.executeUpdate();
+				if(count==0)
+				{
+					System.out.println("User not found exception");
 				}
-
+				else
+				{
+					System.out.println("Timestamp updated for id : "+userId);
+				}
+				
+				
 				ps.close();
 				con.close();
 
@@ -1012,6 +1049,7 @@ public class UserDaoImpl implements UserDao {
 				e.printStackTrace();
 			}
 		}
+		
 
 	}
 

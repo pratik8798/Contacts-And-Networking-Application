@@ -56,18 +56,7 @@ public class DeleteUserServlet extends HttpServlet {
 		
 		pw.println(jsonText);
 		pw.close();
-		
-		/*
-		if(adminDao.deleteUser(userId))
-		{
-			pw.println("User deleted successfully");
-		}
-		else
-		{
-			pw.println("User not found");
-		}
-		pw.close();	
-		*/
+	
 	}
 
 }
