@@ -25,8 +25,10 @@ import com.hsbc.utility.IsDeactivatedUtility;
  * 
  * Used for two purposes:
  * 1) Displaying existing user information before updating
- * 2) Search users based on field and value and checking validation of users before displaying them.
- * 
+ * 2) Search users based on field and value and checking validation of users before displaying  *  them.
+ * Receives : field,value to be searched and userName of logged in user
+ * Output : List of searched users / message 
+ * Author: Suhani Rathi
  */
 public class ViewUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

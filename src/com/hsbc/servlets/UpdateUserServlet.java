@@ -18,8 +18,16 @@ import com.hsbc.dao.UserDaoImpl;
 import com.hsbc.domain.User;
 
 /**
- * Servlet implementation class UpdateUserServlet
+ * 
+ * Servlet to update user information
+ * 
+ * Takes username and finds corresponding userid and calles the updateUser  
+ * function of userDao.				
+ * Receives : user Object with new data
+ * Output : message 
+ * Author : Suhani Rathi
  */
+
 public class UpdateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

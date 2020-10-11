@@ -14,6 +14,18 @@ import org.json.simple.JSONObject;
 import com.hsbc.dao.UserDao;
 import com.hsbc.dao.UserDaoImpl;
 
+
+/**
+ * 
+ * Servlet to deactivate user
+ * 
+ * Takes username and finds corresponding userid and calles the deactivateUser   
+ * function of userDao.				
+ * Receives : userName 
+ * Output : message 
+ * Author : Suhani Rathi
+ */
+
 public class DeactivateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
