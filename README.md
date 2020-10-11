@@ -1,24 +1,28 @@
 # Contacts-And-Networking-Application
 
 ## Table of contents
-* [General info](#general-info)
+* [About the Project](#about-the-project)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Usage](#usage)
 
 
-## General info
-This project is simple Lorem ipsum dolor generator.
+## About the Project
+ Contacts and Networking application is a Java based web application where users can create an account, add contacts, view other users, add other users as friends. Also users can block or unblock other users. Also the application provides separate interface for admin where admin can disable users, delete users and montior user activity.
 	
 ## Technologies
 Project is created with:
-* Lorem version: 12.3
-* Ipsum version: 2.33
-* Ament library version: 999
+* Java version: 8
+* Apache Derby Database version: 10.14
+* Apache Tomcat version : 9.0.38
+
 	
 ## Setup
-To run this project, install it locally using npm:
+To run this project, Apache Tomcat server and Apache Derby database needs to be present on the system.
+
+Open Spring Tool Suite and open this project in the worksapce.
+
+Right Click on the project -> Run As -> Run on Server
 
 ```
-$ cd ../lorem
-$ npm install
-$ npm start
+
