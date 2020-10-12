@@ -8,7 +8,8 @@
 
 
 ## About the Project
- Contacts and Networking application is a Java based web application where users can create an account, add contacts, view other users, add other users as friends. Also users can block or unblock other users. Also the application provides separate interface for admin where admin can disable users, delete users and montior user activity.
+ Contacts and Networking application is a Java based web application where a user can create an account, add contacts, view other users and add them as friends. A User can block
+ or unblock other users. Also, the application provides separate interface for admin where admin can disable users, delete users and montior their activity.
 	
 ## Tools And Technologies
 Project is created with:
