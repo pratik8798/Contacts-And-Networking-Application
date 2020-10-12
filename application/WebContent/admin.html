@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeToConnect</title>
+<link rel="shortcut icon" href="images/logo4.jpg" type="image/x-icon">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+	integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+	crossorigin="anonymous"></script>
+<link
+	href="https://fonts.googleapis.com/css2?family=Muli:wght@600&amp;display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" href="icons/css/fontawesome.css">
+<link rel="stylesheet" href="icons/css/brands.min.css">
+<link rel="stylesheet" href="icons/css/solid.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/forms.css">
+<!-- <link rel="stylesheet" href="purpose.css"> -->
+<link rel="stylesheet" href="css/user.css">
+
+<script src="js/main.js"></script>
+<script src="js/admin.js"></script>
+</head>
+
+<body>
+	<div id="content">
+
+		<div class="container-fluid  userContainer adminContainer">
+			<div class="sidenav show" id="sidenav-main">
+				<!-- Sidenav header -->
+				<div class="sidenav-header d-flex align-items-center">
+
+					<span class="headerHead h3">CodeToConnect</span>
+
+
+				</div>
+				<!-- User mini profile -->
+				<div
+					class="sidenav-user d-flex flex-column align-items-center justify-content-between text-center">
+					<!-- Avatar -->
+					<div>
+						<a href="#" class="avatar rounded-circle avatar-lg"> <img
+							alt="Image placeholder" src="images/avatar.png"
+							id="profileDisplayer">
+						</a>
+						<div class="mt-4">
+							<h5 class="mb-0 text-white" id="adminName"></h5>
+
+							<span class="d-block text-sm text-white opacity-8 mb-3"
+								id="adminemail"></span> <a href="#"
+								class="btn btn-sm btn-white btn-icon rounded-pill shadow hover-translate-y-n3">
+								<span class="btn-inner--icon avatarIcon"><i
+									class="fas fa-phone"></i></span> <span
+								class="btn-inner--text avatarIcon" id="adminphoneNumber"></span>
+							</a>
+						</div>
+					</div>
+					<!-- User info -->
+
+				</div>
+				<!-- Application nav -->
+				<div class="nav-application clearfix">
+					<span class="btn btn-square text-sm active" id="adminHome">
+						<span class="btn-inner--icon d-block"><i
+							class="fas fa-home fa-2x"></i></span> <span
+						class="btn-inner--icon d-block pt-2">Home</span>
+					</span> <span class="btn btn-square text-sm" id="adminAllUsers"> <span
+						class="btn-inner--icon d-block"><i
+							class="fas fa-user fa-2x"></i></span> <span
+						class="btn-inner--icon d-block pt-2">All Users</span>
+					</span> <span class="btn btn-square text-sm" id="adminDisabledUsers">
+						<span class="btn-inner--icon d-block"><i
+							class="fas fa-users-slash fa-2x"></i></span> <span
+						class="btn-inner--icon d-block pt-2">Disabled Users</span>
+					</span> <span class="btn btn-square text-sm" id="adminDeletedUsers">
+						<span class="btn-inner--icon d-block"><i
+							class="fas fa-user-minus fa-2x"></i></span> <span
+						class="btn-inner--icon d-block pt-2">Deleted Users</span>
+					</span> <span class="btn btn-square text-sm" id="adminMostActiveUsers">
+						<span class="btn-inner--icon d-block"><i
+							class="fas fa-user-check fa-2x"></i></span> <span
+						class="btn-inner--icon d-block pt-2">Most Active Users</span>
+					</span>
+				</div>
+				<!-- Misc area -->
+
+			</div>
+			<div class="main-content position-relative">
+				<nav
+					class="navbar navbar-main navbar-expand-lg navbar-dark navbar-border"
+					id="navbar-main">
+					<div class="container-fluid">
+
+						<div class="collapse navbar-collapse navbar-collapse-fade"
+							id="navbar-main-collapse">
+							<!-- Right menu -->
+							<ul class="navbar-nav ml-lg-auto align-items-center d-lg-flex">
+
+
+
+								<li class="nav-item dropdown dropdown-animate"><a
+									class="nav-link pr-lg-0" href="#" role="button"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">
+										<div class="media media-pill align-items-center">
+
+											<div class="ml-2 d-lg-block">
+												<span class="mb-0 text-sm  font-weight-bold"
+													id="adminsideName"></span>
+											</div>
+										</div>
+								</a>
+									<div
+										class="dropdown-menu dropdown-menu-sm dropdown-menu-right dropdown-menu-arrow">
+										<h6 class="dropdown-header px-0" id="adminwelcomeMessage"></h6>
+
+
+
+										<div class="dropdown-divider"></div>
+										<span class="dropdown-item" id="adminlogout"> <i
+											class="fas fa-sign-out-alt"></i> <span>Logout</span>
+										</span>
+									</div></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+
+				<div class="page-content" id="displayTotalUsers">
+					<!-- Page title -->
+					<div class="page-title">
+						<div class="row justify-content-between align-items-center">
+							<div
+								class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-start mb-3 mb-md-0">
+								<!-- Page title + Go Back button -->
+								<div class="d-inline-block">
+									<h5 class="h4 d-inline-block font-weight-400 mb-0 text-white">Good
+										Morning!</h5>
+								</div>
+
+
+							</div>
+
+						</div>
+					</div>
+					<div class="row" id="displayUsers"></div>
+
+
+				</div>
+
+
+				<script>
+					document.getElementById("adminlogout").addEventListener("click", () => {
+						
+						localStorage.clear();
+						 var tempUrl = window.location.href;
+				            var actUrl = tempUrl.replace("admin.html","");
+								 window.location.assign(actUrl)  
+					})
+
+
+				</script>
+
+
+			</div>
+
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/getTotalUsers.js"></script>
+	<script type="text/javascript" src="js/listOfPossibleDisabledUsers.js"></script>
+	<script type="text/javascript" src="js/listOfPossibleDeletedUsers.js"></script>
+	<script type="text/javascript" src="js/disableUser.js"></script>
+	<script type="text/javascript" src="js/deleteUser.js"></script>
+	<script type="text/javascript" src="js/listOfMostActiveUsers.js"></script>
+</body>
+
+</html>

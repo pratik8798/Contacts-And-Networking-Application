@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<admins>
+	<admin>
+		<name>Admin 1</name>
+		<email>admin1@hsbc.co.in</email>
+		<phoneNumber>9566486825</phoneNumber>
+		<userName>admin1</userName>
+		<password>admin1</password>
+	</admin>
+	
+	
+	<admin>
+		<name>Admin 2</name>
+		<email>admin2@hsbc.co.in</email>
+		<phoneNumber>9456486911</phoneNumber>
+		<userName>admin2</userName>
+		<password>admin2</password>
+	</admin>
+
+</admins>

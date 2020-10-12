@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeToConnect</title>
+    <link rel="shortcut icon" href="images/logo4.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Muli:wght@600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="icons/css/fontawesome.css">
+    <link rel="stylesheet" href="icons/css/brands.min.css">
+    <link rel="stylesheet" href="icons/css/solid.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <script src="js/loginRegisterForm.js"></script>
+
+
+</head>
+
+<body>
+
+    <div id="homePage">
+        <div class="container-fluid">
+
+            <div class="row no-gutters">
+                <div class="col-6">
+                    <div id="codeToConnectImage"></div>
+                </div>
+                <div class="col-6 content">
+
+                    <div class="logoImageHolder">
+                        <img src="images/logo4.jpg" alt="logo">
+                    </div>
+                    <div class="logoHeading">
+                        <h3>Code To Connect</h3>
+                    </div>
+                    <div class="details">
+                        <p>We at CodeToConnect provide an easy to access platform for you to build connections via
+                            adding friends on our network and also maintain your personal contacts in a separate
+                            section. You can block unwanted users and users for any fraudulent activity. If you think you
+                            are spending more time? No worries, just deactivate your profile and not let the other users
+                            disturb you. Come back anytime you want and re-login. We believe in healthy connections.
+                            Join us now.
+                        </p>
+                    </div>
+                    <div>
+                        <button id="loginButton" class="buttonCustomization black cta-login">Login</button>
+
+                        <button id="registerButton" class="buttonCustomization black cta-register">Register</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <section id="loginForm" class="toggle-form">
+            <div class="row">
+                <div class="formwrap offset-6 col-6">
+                    <!-- <div class="formHeading blue-gradient">
+
+                        <span class="h3">Login</span>
+                        
+                    </div> -->
+                    <div class="icon-close pos-a"><span>Close <i class="fas fa-times"></i></span></div>
+
+                    <div class="loginFormStyling">
+                        <form action="#" role="form" data-toggle="validator">
+                            <div class="form-group">
+                                <i class="fas fa-user-tie"></i>
+                                <input type="text" id="userNameLogin" class="form-control" placeholder="Your Username"
+                                    required data-error="Please enter your username">
+                                <span class="userNameErrorLogin"></span>
+                                <!-- <label class="control-label" for="userName">Your Username</label> -->
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="passwordLogin" class="form-control"
+                                    placeholder="Your Password" required data-error="Please enter your password">
+                                <span class="passwordErrorLogin"></span>
+                                <!-- <label for="password">Your Password</label> -->
+
+                            </div>
+
+                        </form>
+                        <div class="submitButtonHolder">
+                            <button id="submitLoginDetails" type="submit"
+                                class="btn btn-lg orange w-100 margin-top-s">Login</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+        <!-- Registration Form -->
+
+        <section id="registrationForm" class="toggle-form">
+            <div class="row">
+                <div class="formwrap offset-6 col-6">
+                    <!-- <div class="formHeading blue-gradient">
+
+                        <span class="h3">Register</span>
+                        
+                    </div> -->
+                    <div class="icon-close pos-a"><span>Close <i class="fas fa-times"></i></span></div>
+
+                    <div class="loginFormStyling">
+                        <form action="#" role="form" enctype="multipart/form-data" data-toggle="validator">
+
+                            <div class="form-group">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="fullName" class="form-control" placeholder="Your Name" required
+                                    data-error="Please enter your name">
+                                <span class="fullNameError"></span>
+
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="email" class="form-control" placeholder="Your Email" required
+                                    data-error="Please enter your email">
+                                <span class="emailError"></span>
+
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-phone"></i>
+                                <input type="text" id="phoneNumber" class="form-control"
+                                    placeholder="Your Contact Number" required
+                                    data-error="Please enter your contact number">
+                                <span class="phoneNumberError"></span>
+
+                            </div>
+                            <div class="clubbedFormGroup">
+
+                                <div class="form-group clubbedTags">
+                                    <i class="fas fa-venus-mars"></i>
+                                    <!-- <input type="text" id="g" class="form-control" placeholder="Your Contact Number" required data-error="Please enter your contact number"> -->
+                                    <select class="form-control" name="gender" id="gender" required>
+
+                                        <option value="" disabled="disabled">Select a gender</option>
+                                        <option value="female">Female</option>
+                                        <option value="male">Male</option>
+                                        <option value="other">Other</option>
+                                        <option value="Not Specify">Not Specify</option>
+
+
+                                    </select>
+
+
+                                </div>
+                                <div class="form-group  clubbedTags">
+                                    <i class="fas fa-birthday-cake"></i>
+                                    <input type="date" name="dateOfBirth" id="dateOfBirth" required
+                                        class="form-control">
+
+
+                                </div>
+                                <span class="genderError"></span> &emsp;
+                                <span class="dobError"></span>
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-address-card"></i>
+                                <input type="text" name="address" id="address" required class="form-control"
+                                    placeholder="Your Address">
+                                <span class="addressError"></span>
+
+                            </div>
+
+                            <div class="clubbedFormGroup">
+                                <div class="form-group clubbedTags">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <input type="text" name="pincode" id="pincode" required class="form-control"
+                                        placeholder="Your Pincode">
+
+
+                                </div>
+                                <div class="form-group clubbedTags">
+                                    <i class="fas fa-address-card"></i>
+                                    <input type="text" name="city" id="city" required class="form-control"
+                                        placeholder="Your City">
+
+
+                                </div>
+                                <span class="pincodeError"></span> &emsp;
+                                <span class="cityError"></span>
+                            </div>
+
+                            <div class="clubbedFormGroup">
+
+                                <div class="form-group clubbedTags">
+                                    <i class="fas fa-address-card"></i>
+                                    <input type="text" name="state" id="state" required class="form-control"
+                                        placeholder="Your State">
+
+
+                                </div>
+                                <div class="form-group clubbedTags">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                    <input type="text" name="country" id="country" required class="form-control"
+                                        placeholder="Your Country">
+
+
+                                </div>
+                                <span class="stateError"></span> &emsp;
+                                <span class="countryError"></span>
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-building"></i>
+                                <input type="text" name="company" id="company" required class="form-control"
+                                    placeholder="Your Company">
+                                <span class="companyError"></span>
+
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-user-tie"></i>
+                                <input type="text" name="userName" id="userName" required class="form-control"
+                                    placeholder="Your Username">
+                                <span class="userNameErrorR"></span>
+
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-user-lock"></i>
+                                <input type="password" name="password" id="password" required class="form-control"
+                                    placeholder="Your Password">
+                                <span class="passwordErrorR"></span>
+
+                            </div>
+                            <div class="form-group">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" name="confirmPassword" id="confirmPassword" required
+                                    class="form-control" placeholder="Confirm your Password">
+                                <span class="confirmPasswordError"></span>
+
+                            </div>
+
+                            <!-- <div class="form-group">
+                             <label for="emailAddress" class="control-label">Email address</label>
+                            <input type="text" id="emailAddress" name="emailAddress" class="form-control" data-error="Please enter a valid email" required>
+                            <div class="help-block with-errors"></div> 
+                        </div> -->
+                            <div class="form-group">
+                                <i class="fas fa-file-image"></i>
+                                <input type="file" name="profileImage" id="profileImage" class="form-control"
+                                    placeholder="Upload your Photo" accept="image/*">
+
+                            </div>
+
+                            <span class="formDetailsError"></span>
+                            <!-- <p class="text-center margin-top-s"><small>By clicking "Submit" you agree to our Terms of Service.</small></p> -->
+
+                        </form>
+                        <div class="submitButtonHolder">
+                            <button id="registerDetails" type="submit"
+                                class="btn btn-lg orange w-100 margin-top-s">Register</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </section>
+
+        <!-- Display modal on login error -->
+        <div class="modal fade" id="loginFailureModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">WARNING</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="failureMessage"></p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="button" id="redirectTologin" class="btn btn-success"
+                            data-dismiss="modal">Login</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script src="js/validation.js"></script>
+    <script src="js/loginController.js"></script>
+    <script src="js/registerController.js"></script>
+</body>
+
+</html>

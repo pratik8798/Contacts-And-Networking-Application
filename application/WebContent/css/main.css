@@ -1,0 +1,122 @@
+*,
+:after,
+:before {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(31, 45, 61, 0)
+}
+
+article,
+aside,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+    display: block
+}
+
+body {
+    font-family: 'Muli', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+    left: 0%;
+    transition: ease-in-out .6s;
+}
+
+.left {
+    left: -50%;
+}
+
+.container-fluid {
+    padding: 0px;
+}
+
+#codeToConnectImage {
+    /* background-image: url("https://www.simplifiedsocialmediaoptimization.com/wp-content/uploads/2016/02/social-media-marketing.jpg"); */
+    /* background-image: url("https://static1.bigstockphoto.com/3/8/2/large1500/283469119.jpg"); */
+    background-image: url("../images/bg2.jpg");
+    height: 100vh;
+    background-size: 100% 100%;
+}
+
+.content {
+    margin-top: 10%;
+    text-align: center;
+}
+
+.content img {
+    height: 20vh;
+    margin-bottom: 10px;
+}
+
+.details {
+    text-align: justify;
+    padding: 1% 5%;
+}
+
+.buttonHolder {
+    justify-content: center;
+}
+
+.buttonCustomization {
+    min-width: 146px;
+    margin: 20px;
+    text-transform: uppercase;
+    white-space: normal;
+    cursor: pointer;
+    border: 0;
+    border-radius: 25px;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    padding: .84rem 2.14rem;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.buttonCustomization:focus {
+    outline: none;
+}
+
+.buttonCustomization:hover {
+    /* background: linear-gradient(40deg, #45cafc, #303f9f) !important;
+     */
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 25px;
+    color: black;
+}
+
+
+/* .blue-gradient {
+    background: linear-gradient(40deg, #45cafc, #303f9f) !important;
+} */
+
+
+/* .peach-gradient {
+    background: linear-gradient(40deg, #ffd86f, #fc6262) !important;
+}
+
+
+.aqua-gradient {
+    background: linear-gradient(40deg, #2096ff, #05ffa3) !important;
+} */
+
+.black {
+    background-color: black;
+}
+
+.colorChange {
+    background-color: white;
+    border-color: black;
+    color: black;
+}

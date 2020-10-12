@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CodeToConnect</title>
+	<link rel="shortcut icon" href="images/logo4.jpg" type="image/x-icon">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+		crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Muli:wght@600&amp;display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="icons/css/fontawesome.css">
+	<link rel="stylesheet" href="icons/css/brands.min.css">
+	<link rel="stylesheet" href="icons/css/solid.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/forms.css">
+	<!-- <link rel="stylesheet" href="purpose.css"> -->
+	<link rel="stylesheet" href="css/user.css">
+
+</head>
+
+<body>
+	<div id="content">
+
+		<div class="container-fluid userContainer">
+			<!-- Side Nav content display area -->
+			<div class="sidenav show" id="sidenav-main">
+				<!-- Sidenav header -->
+				<div class="sidenav-header d-flex align-items-center">
+
+					<span class="headerHead h3">CodeToConnect</span>
+
+					<!-- <div class="ml-auto">
+                        Sidenav toggler -->
+					<!-- <div class="sidenav-toggler sidenav-toggler-dark d-md-none active" data-action="sidenav-unpin" data-target="#sidenav-main">
+                        <div class="sidenav-toggler-inner">
+                            <i class="sidenav-toggler-line bg-white"></i>
+                            <i class="sidenav-toggler-line bg-white"></i>
+                            <i class="sidenav-toggler-line bg-white"></i>
+                        </div>
+                    </div>
+                </div>  -->
+				</div>
+				<!-- User mini profile -->
+				<div class="sidenav-user d-flex flex-column align-items-center justify-content-between text-center">
+					<!-- Avatar -->
+					<div>
+						<a href="#" class="avatar rounded-circle avatar-lg"> <img alt="Image placeholder" src=""
+								id="profileDisplayer">
+						</a>
+						<div class="mt-4">
+							<h5 class="mb-0 text-white" id="fullName"></h5>
+							<h5 class="mb-0 text-white" id="userName"></h5>
+							<span class="d-block text-sm text-white opacity-8 mb-3" id="email"></span> <a href="#"
+								class="btn btn-sm btn-white btn-icon rounded-pill shadow hover-translate-y-n3">
+								<span class="btn-inner--icon avatarIcon"><i class="fas fa-phone"></i></span> <span
+									class="btn-inner--text avatarIcon" id="phoneNumber"></span>
+							</a>
+						</div>
+					</div>
+
+				</div>
+				<!-- Application nav -->
+				<div class="nav-application clearfix">
+					<span class="btn btn-square text-sm active" id="Home"> <span class="btn-inner--icon d-block"><i
+								class="fas fa-home fa-2x"></i></span> <span
+							class="btn-inner--icon d-block pt-2">Home</span>
+					</span> <span class="btn btn-square text-sm" id="Profile"> <span class="btn-inner--icon d-block"><i
+								class="fas fa-user fa-2x"></i></span> <span
+							class="btn-inner--icon d-block pt-2">Profile</span>
+					</span> <span class="btn btn-square text-sm" id="Friends"> <span class="btn-inner--icon d-block"><i
+								class="fas fa-users fa-2x"></i></span> <span
+							class="btn-inner--icon d-block pt-2">Friends</span>
+					</span> <span class="btn btn-square text-sm" id="Contacts"> <span class="btn-inner--icon d-block"><i
+								class="fas fa-address-book fa-2x"></i></span> <span
+							class="btn-inner--icon d-block pt-2">Contacts</span>
+					</span> <span class="btn btn-square text-sm" id="PendingRequests">
+						<span class="btn-inner--icon d-block"><i class="fas fa-user-plus fa-2x"></i></span> <span
+							class="btn-inner--icon d-block pt-2">Friend Requests</span>
+					</span> <span class="btn btn-square text-sm" id="BlockedContacts">
+						<span class="btn-inner--icon d-block"><i class="fas fa-user-slash fa-2x"></i></span> <span
+							class="btn-inner--icon d-block pt-2">Blocked</span>
+					</span>
+				</div>
+
+			</div>
+
+			<!-- Main content display area -->
+			<div class="main-content position-relative">
+				<nav class="navbar navbar-main navbar-expand-lg navbar-dark navbar-border" id="navbar-main">
+					<div class="container-fluid">
+
+						<!-- User's navbar -->
+
+						<!-- Navbar nav -->
+						<div class="collapse navbar-collapse navbar-collapse-fade" id="navbar-main-collapse">
+							<!-- Right menu -->
+							<ul class="navbar-nav ml-lg-auto align-items-center d-lg-flex">
+
+								<div id="omnisearch" class="omnisearch1">
+									<div class="container">
+
+										<form class="omnisearch-form">
+											<div class="form-group">
+												<div class="input-group input-group-merge input-group-flush">
+													<div class="input-group-prepend">
+														<span id="mySearchBtn" class="input-group-text"><i
+																class="fas fa-search"></i></span>
+													</div>
+													<select id="searchFilter">
+														<option value="" disabled="disabled">Choose the
+															filter</option>
+														<option value="userName">Username</option>
+														<option value="fullName">Name</option>
+														<option value="location">Country</option>
+														<option value="company">Company</option>
+														<option value="email">Email</option>
+
+													</select> <input type="text" class="form-control" id="searchValue"
+														placeholder="Type and hit enter ..."> <span
+														id="searchFilterError"></span>
+												</div>
+											</div>
+										</form>
+
+
+									</div>
+								</div>
+								<li class="nav-item dropdown dropdown-animate"><a class="nav-link pr-lg-0" href="#"
+										role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<div class="media media-pill align-items-center">
+
+											<div class="ml-2 d-lg-block">
+												<span class="mb-0 text-sm  font-weight-bold" id="sideName"></span>
+											</div>
+										</div>
+									</a>
+									<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right dropdown-menu-arrow">
+										<h6 class="dropdown-header px-0" id="welcomeMessage"></h6>
+
+										<span class="dropdown-item" id="deactivateMe"> <i class="fas fa-user-times"></i>
+											<span>Deactivate
+												Profile</span>
+										</span>
+
+										<div class="dropdown-divider"></div>
+										<span class="dropdown-item" id="logout"> <i class="fas fa-sign-out-alt"></i>
+											<span>Logout</span>
+										</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+
+				<div id="welcomeMessageScreen">
+					<span class="messageDisplayedWelcom">Good Morning!</span>
+				</div>
+				<div class="page-content changeDisplayTypeNone" id="showFriends">
+					<!-- Page title -->
+
+					<div class="page-title">
+						<div class="row justify-content-between align-items-center">
+							<div
+								class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-start mb-3 mb-md-0">
+								<!-- Page title + Go Back button -->
+								<div class="d-inline-block">
+									<h5 class="h5 d-inline-block font-weight-400 mb-0 text-white">Friends</h5>
+								</div>
+
+
+							</div>
+
+						</div>
+					</div>
+					<div class="row" id="displayFriends">
+
+						<!-- <div class="col-lg-4 col-sm-6">
+                            <div class="card hover-shadow-lg">
+                                <div class="card-body text-center">
+                                    <div class="avatar-parent-child">
+                                        <img alt="Image placeholder" src="images/avatar.png"
+                                            class="avatar  rounded-circle avatar-lg">
+                                        <span class="avatar-child avatar-badge bg-success"></span>
+                                    </div>
+                                    <h5 class="h6 mt-4 mb-0 card_head_name">John Sullivan</h5>
+                                    <a href="#" class="d-block text-sm text-muted mb-3">@john.sullivan</a>
+                                    <div class="actions d-flex justify-content-between px-4">
+                                        <a href="#" class="action-item">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="#" class="action-item">
+                                            <i class="fas fa-user-slash"></i>
+                                        </a>
+                                        <a href="#" class="action-item">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div> -->
+
+					</div>
+					<!-- Load more -->
+					<!-- <div class="mt-4 text-center">
+                        <a href="#" class="btn btn-sm btn-neutral rounded-pill shadow hover-translate-y-n3">Load more
+                            ...</a>
+                    </div> -->
+
+
+
+
+
+				</div>
+
+				<div class="page-content changeDisplayTypeNone" id="showPendingRequests">
+					<!-- Page title -->
+					<div class="page-title">
+						<div class="row justify-content-between align-items-center">
+							<div
+								class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-start mb-3 mb-md-0">
+								<!-- Page title + Go Back button -->
+								<div class="d-inline-block">
+									<h5 class="h5 d-inline-block font-weight-400 mb-0 text-white">Friends Requests</h5>
+								</div>
+
+
+							</div>
+
+						</div>
+					</div>
+					<div class="row" id="displayRequests"></div>
+					<!-- Load more -->
+					<!-- <div class="mt-4 text-center">
+                        <a href="#" class="btn btn-sm btn-neutral rounded-pill shadow hover-translate-y-n3">Load more
+                            ...</a>
+                    </div> -->
+
+
+
+
+
+				</div>
+
+				<div class="page-content changeDisplayTypeNone" id="showBlockedContacts">
+					<!-- Page title -->
+					<div class="page-title">
+						<div class="row justify-content-between align-items-center">
+							<div
+								class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-start mb-3 mb-md-0">
+								<!-- Page title + Go Back button -->
+								<div class="d-inline-block">
+									<h5 class="h5 d-inline-block font-weight-400 mb-0 text-white">Blocked
+										Users</h5>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+					<div class="row" id="displayBlockedUsers"></div>
+					<!-- Load more -->
+					<!-- <div class="mt-4 text-center">
+                        <a href="#" class="btn btn-sm btn-neutral rounded-pill shadow hover-translate-y-n3">Load more
+                            ...</a>
+                    </div> -->
+
+
+
+
+
+				</div>
+
+				<div class="page-content changeDisplayTypeNone" id="showContacts">
+					<!-- Page title -->
+					<div class="page-title">
+						<div class="row justify-content-between align-items-center">
+							<div
+								class="col-md-12 d-flex align-items-center justify-content-between mb-3 mb-md-0">
+								<!-- Page title + Go Back button -->
+								<div class="d-inline-block">
+									<h5 class="h5 d-inline-block font-weight-400 mb-0 text-white">Contact
+										Book</h5>
+								</div>
+
+								<div
+									class="addContactButtonHolder">
+
+									<span id="AddContacts"
+										class="btn btn-sm btn-white btn-icon-only rounded-circleFriend ml-4">
+										<span class="btn-inner--icon"><i class="fas fa-plus"></i>
+											&nbsp; Add Contact</span>
+									</span>
+								</div>
+								
+
+							</div>
+
+						</div>
+					</div>
+					<div class="row" id="displayContacts"></div>
+					
+
+
+
+
+
+				</div>
+
+
+				<!-- Search Content -->
+
+				<div class="page-content changeDisplayTypeNone" id="showSearchContent">
+					<!-- Page title -->
+					<div class="page-title">
+						<div class="row justify-content-between align-items-center">
+							<div
+								class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-start mb-3 mb-md-0">
+								<!-- Page title + Go Back button -->
+								<div class="d-inline-block">
+									<h5 class="h4 d-inline-block font-weight-400 mb-0 text-white">Search
+										Results</h5>
+								</div>
+
+								<div
+									class="col-md-6 d-flex align-items-center justify-content-between justify-content-md-end">
+
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+					<div class="row" id="displaySearch"></div>
+					<!-- Load more -->
+					<!-- <div class="mt-4 text-center">
+                        <a href="#" class="btn btn-sm btn-neutral rounded-pill shadow hover-translate-y-n3">Load more
+                            ...</a>
+                    </div> -->
+
+
+
+
+
+				</div>
+
+
+				<!-- View Profile -->
+
+				<section id="showProfile" class="page-content changeDisplayTypeNone">
+					<div class="row">
+						<div class="offset-2 col-8">
+							<div class="formHeading">
+
+								<span class="h5">My Profile</span>
+
+							</div>
+							<div class="loginFormStyling">
+								<form action="#" role="form" id="profileForm" enctype="multipart/form-data"
+									data-toggle="validator">
+
+
+									<div class="form-group">
+										<label for="fullNameF">Name: </label> <input type="text" id="fullNameF"
+											class="form-control" placeholder="Your Name" required
+											data-error="Please enter your name">
+									</div>
+									<span class="fullNameError"></span>
+
+									<div class="form-group">
+
+										<label for="userNameF">Username: </label> <input type="text" name="userName"
+											id="userNameF" required class="form-control" placeholder="Your Username">
+
+									</div>
+									<span class="userNameErrorR"></span>
+
+
+
+									<div class="form-group">
+										<label for="emailF">Email: </label> <input type="email" id="emailF"
+											class="form-control" placeholder="Your Email" required
+											data-error="Please enter your email">
+
+
+									</div>
+									<span class="emailError"></span>
+									<div class="form-group">
+										<label for="phoneNumberF">Phone Number: </label> <input type="text"
+											id="phoneNumberF" class="form-control" placeholder="Your Contact Number"
+											required data-error="Please enter your contact number">
+
+
+									</div>
+									<span class="phoneNumberError"></span>
+
+
+
+									<div class="form-group">
+										<label for="gender">Gender: </label> <input type="text" id="gender"
+											class="form-control" placeholder="Your Gender" required
+											data-error="Please enter your gender">
+
+
+
+
+									</div>
+									<div class="form-group">
+										<label for="dateOfBirth">DOB: </label> <input type="date" name="dateOfBirth"
+											id="dateOfBirth" required class="form-control">
+
+
+									</div>
+									<span class="dobError"></span>
+
+									<div class="form-group">
+										<label for="address">Address: </label> <input type="text" name="address"
+											id="address" required class="form-control" placeholder="Your Address"> <span
+											class="addressError"></span>
+
+									</div>
+
+
+
+									<div class="form-group ">
+										<label for="city">City: </label> <input type="text" name="city" id="city"
+											required class="form-control" placeholder="Your City">
+
+
+									</div>
+									<span class="cityError"></span>
+
+
+
+
+									<div class="form-group ">
+										<label for="state">State: </label> <input type="text" name="state" id="state"
+											required class="form-control" placeholder="Your State">
+
+
+									</div>
+									<span class="stateError"></span>
+									<div class="form-group ">
+										<label for="country">Country: </label> <input type="text" name="country"
+											id="country" required class="form-control" placeholder="Your Country">
+
+
+									</div>
+									<span class="countryError"></span>
+
+									<div class="form-group">
+
+										<label for="company">Company: </label> <input type="text" name="company"
+											id="company" required class="form-control" placeholder="Your Company"> <span
+											class="companyError"></span>
+
+									</div>
+									<div class="form-group">
+										<label for="profileImageR">Profile Image: </label> <input type="file"
+											name="profileImage" id="profileImageR" class="form-control"
+											placeholder="Upload your Photo" accept="image/*">
+
+									</div>
+
+									<span class="formDetailsError"></span>
+									<!-- <p class="text-center margin-top-s"><small>By clicking "Submit" you agree to our Terms of Service.</small></p> -->
+
+								</form>
+								<div class="submitButtonHolder">
+									<button id="EditDetails" type="submit"
+										class="btn btn-lg orange w-100 margin-top-s">Edit</button>
+
+									<button id="saveDetails" type="submit"
+										class="btn btn-lg orange w-100 margin-top-s">Save</button>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</section>
+
+
+
+				<section id="showAddContacts" class="page-content changeDisplayTypeNone">
+					<div class="row">
+						<div class="offset-2 col-8">
+							<div class="formHeading">
+
+								<span class="h5">Create Contact</span>
+
+							</div>
+							<div class="loginFormStyling">
+								<form action="#" role="form" id="contactForm" enctype="multipart/form-data"
+									data-toggle="validator">
+
+
+									<div class="form-group">
+										<label for="fullNameC">Name: </label> <input type="text" id="fullNameC"
+											class="form-control" placeholder="Contact's Name" required
+											data-error="Please enter your name">
+									</div>
+									<span class="fullNameError"></span>
+
+									<div class="form-group">
+										<label for="emailC">Email: </label> <input type="email" id="emailC"
+											class="form-control" placeholder="Contact's Email" required
+											data-error="Please enter your email">
+
+
+									</div>
+									<span class="emailCError"></span>
+									<div class="form-group">
+										<label for="phoneNumberC">Phone Number: </label> <input type="text"
+											id="phoneNumberC" class="form-control" placeholder="Contact's Number"
+											required data-error="Please enter your contact number">
+
+
+									</div>
+									<span class="phoneNumberCError"></span>
+
+
+
+									<div class="form-group">
+										<label for="genderC">Gender: </label> <input type="text" id="genderC"
+											class="form-control" placeholder="Contact's Gender" required
+											data-error="Please enter your gender">
+
+
+
+
+									</div>
+									<div class="form-group">
+										<label for="dateOfBirthC">DOB: </label> <input type="date" name="dateOfBirthC"
+											id="dateOfBirthC" required class="form-control">
+
+
+									</div>
+									<span class="dobError"></span>
+
+									<div class="form-group">
+										<label for="addressC">Address: </label> <input type="text" name="address"
+											id="addressC" required class="form-control" placeholder="Contact's Address">
+										<span class="addressError"></span>
+
+									</div>
+
+
+
+									<div class="form-group ">
+										<label for="cityC">City: </label> <input type="text" name="city" id="cityC"
+											required class="form-control" placeholder="Contact's City">
+
+
+									</div>
+									<span class="cityError"></span>
+
+
+
+
+									<div class="form-group ">
+										<label for="stateC">State: </label> <input type="text" name="state" id="stateC"
+											required class="form-control" placeholder="Contact's State">
+
+
+									</div>
+									<span class="stateError"></span>
+									<div class="form-group ">
+										<label for="countryC">Country: </label> <input type="text" name="country"
+											id="countryC" required class="form-control" placeholder="Contact's Country">
+
+
+									</div>
+									<span class="countryError"></span>
+
+									<div class="form-group">
+
+										<label for="companyC">Company: </label> <input type="text" name="company"
+											id="companyC" required class="form-control" placeholder="Contact's Company">
+										<span class="companyError"></span>
+
+									</div>
+
+
+									<!-- <div class="form-group">
+                             <label for="emailAddress" class="control-label">Email address</label>
+                            <input type="text" id="emailAddress" name="emailAddress" class="form-control" data-error="Please enter a valid email" required>
+                            <div class="help-block with-errors"></div> 
+                        </div> -->
+									<div class="form-group">
+										<label for="profileImageC">Profile Image: </label> <input type="file"
+											name="profileImage" id="profileImageC" class="form-control"
+											placeholder="Upload your Photo" accept="image/*">
+
+									</div>
+									<span class="formDetailsCError"></span>
+									<!-- <p class="text-center margin-top-s"><small>By clicking "Submit" you agree to our Terms of Service.</small></p> -->
+
+								</form>
+								<div class="submitButtonHolder">
+
+
+									<button id="saveContactDetails" type="submit"
+										class="btn btn-lg orange w-100 margin-top-s">Save</button>
+									<button id="saveContactUpdatedDetails" type="submit"
+										class="btn btn-lg orange w-100 margin-top-s">Save</button>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</section>
+
+
+
+
+
+			</div>
+
+		</div>
+
+		<div class="modal fade" id="loginFailureModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">WARNING</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p class="failureMessage"></p>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="birthdayWish" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Celebration Time &#127881;</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p class="birthdayMessage"></p>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal for displaying the friend -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="displayFriend" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="friendLabel">Say Hello!</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" id="friendContent">
+						<div class="row">
+							<div class="col-5">
+								<div class="avatar-parent-child">
+									<img alt="Image placeholder" src="" id="imageFriend"
+										class="avatar  rounded-circle avatar-lg">
+								</div>
+								<div class="imageFooterContent">
+									<span class="d-block text-sm text-muted mb-3" id="oneFriendUsername"></span>
+								</div>
+							</div>
+							<div class="col-7">
+
+								<div class="friendBasicDetails">
+									<h5 class="h6 mt-4 mb-0 card_head_name" id="friendName"></h5>
+									<span class="d-block text-sm mb-3" id=friendEmail></span> <span
+										class="d-block text-sm mb-3" id=friendPhone></span> <span
+										class="d-block text-sm mb-3" id=friendDOB></span> <span
+										class="d-block text-sm mb-3" id=friendLocation></span> <span
+										class="d-block text-sm mb-3" id=friendCompany></span>
+
+									<button class="btn btn btn-info" id="extraButton" data-dismiss="modal">
+										<i class="fas fa-comment"></i>&nbsp; Chat
+									</button>
+								</div>
+
+							</div>
+						</div>
+
+
+
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="deactivationConfirmation" data-backdrop="static" data-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">SUCCESS
+							STATUS</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p class="deactivationMessage"></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" id="confirmDeactivated"
+							data-dismiss="modal">Okay</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="autoPopulateContact" data-backdrop="static" data-keyboard="false" tabindex="-1"
+			aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="staticBackdropLabel">Contact
+							Status</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p class="contactMessage">The contact you are trying to add is
+							already available. Do you want to get the details and add it to
+							your contact?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" id="addTheAlreadyPresentContact"
+							data-dismiss="modal">Add</button>
+						<button type="button" class="btn btn-secondary" id="doNotAdd"
+							data-dismiss="modal">Abort</button>
+						<button type="button" class="btn btn-secondary" id="viewAndEdit" data-dismiss="modal">View and
+							Edit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</div>
+
+
+	<script src="js/user.js"></script>
+	<script src="js/displayChangeUtility.js"></script>
+	<script src="js/getAllFriend.js"></script>
+	<script src="js/friendFunctionality.js"></script>
+	<script type="text/javascript" src="js/pendingRequest.js"></script>
+	<script type="text/javascript" src="js/friendRequestFunctionalities.js"></script>
+	<script type="text/javascript" src="js/getBlockUsers.js"></script>
+	<script type="text/javascript" src="js/unblockUser.js"></script>
+	<script type="text/javascript" src="js/getContact.js"></script>
+
+	<script type="text/javascript" src="js/contactFunctionality.js"></script>
+
+	<script type="text/javascript" src="js/profile.js"></script>
+	<script type="text/javascript" src="js/deactivateUser.js"></script>
+	<script type="text/javascript" src="js/logout.js"></script>
+	<script type="text/javascript" src="js/validation.js"></script>
+	<script type="text/javascript" src="js/createContact.js"></script>
+	<script type="text/javascript" src="js/searchUser.js"></script>
+	<script type="text/javascript" src="js/sendFriendRequest.js"></script>
+</body>
+
+</html>
