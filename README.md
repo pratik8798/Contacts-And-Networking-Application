@@ -63,3 +63,4 @@ Admin Credentials:
 Username: Admin1
 Password: Admin1
 
+# Note: Update the paths in DbUitility for database and FileUtility for admin's xml file.
