@@ -59,4 +59,7 @@ Go to WebContent -> WEB-INF -> lib folder and paste following jar files
 
 4) If you have admin privileges, login with admin credentials. You will be directed to admin dashboard where you can disable or even delete one or more users and can monitor user activity.
 
+Admin Credentials:
+Username: Admin1
+Password: Admin1
 
