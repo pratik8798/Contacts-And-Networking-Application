@@ -12,12 +12,18 @@
 	
 ## Tools And Technologies
 Project is created with:
-* Java version: 8
-* Apache Derby Database version: 10.14
+* Java version : 8
+* Apache Derby Database version : 10.14
 * Apache Tomcat version : 9.0.38
 * Spring Tool Suite version : 4.7.2
 
-
+Technologies : 
+* Java
+* HTML
+* CSS
+* JavaScript
+* Ajax
+* Servlets
 	
 ## Setup
 To run this project, Apache Tomcat server and Apache Derby database must be present on the system.
